@@ -1,0 +1,2 @@
+rootProject.name='perdana-indonesia-android'
+include ':app'
