@@ -23,4 +23,8 @@
         <!-- include other attributes you want to change: textColor, textStyle, etc -->
     </style>
 
+    <style name="ToolbarDarkTheme" parent="@style/ThemeOverlay.AppCompat.Light">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
 </resources>

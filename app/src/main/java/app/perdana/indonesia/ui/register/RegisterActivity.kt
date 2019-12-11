@@ -1,4 +1,4 @@
-package app.perdana.indonesia.ui.login
+package app.perdana.indonesia.ui.register
 
 import android.os.Bundle
 import android.view.View
@@ -11,10 +11,10 @@ import kotlinx.android.synthetic.main.toolbar.*
 /**
  * Created by ebysofyan on 11/26/19.
  */
-class LoginActivity : AppCompatActivity(), View.OnClickListener {
+class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.login_activity)
+        setContentView(R.layout.register_activity)
 
         initializeUi()
     }
@@ -25,9 +25,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initActionBar() {
-        _toolbar.setupActionbar(this, getString(R.string.login), true) {
+        _toolbar.setupActionbar(this, getString(R.string.register), true) {
             finish()
         }
+        primary_button_dark.text = getString(R.string.register)
     }
 
     private fun initActionListener() {

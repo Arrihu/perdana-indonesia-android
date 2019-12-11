@@ -7,7 +7,7 @@ import android.os.Handler
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import app.perdana.indonesia.R
-import app.perdana.indonesia.ui.intro.IntroActivity
+import app.perdana.indonesia.ui.intro.welcome.WelcomeIntroActivity
 
 /**
  * Created by ebysofyan on 12/2/19.
@@ -28,7 +28,7 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun navigateTo() {
-        startActivity(Intent(this, IntroActivity::class.java))
+        startActivity(Intent(this, WelcomeIntroActivity::class.java))
     }
 
     private fun removeStatusBar() {

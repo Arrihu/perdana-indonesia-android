@@ -4,4 +4,20 @@
     <string name="lorem">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
     <string name="next">Lanjutkan</string>
     <string name="skip">Lewati</string>
+    <string name="you_are_not_registered">Anda Belum Terdaftar</string>
+    <string name="auth_intro_text_body">Daftar sebagai anggota untuk dapat \nmenikmati lebih banyak fitur</string>
+    <string name="register">Daftar</string>
+    <string name="login">Masuk</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="forgot_password">Lupa Kata Sandi?</string>
+    <string name="dont_have_account">Belum punya akun?</string>
+    <string name="full_name_hint">Nama Lengkap (Sesuai KTP)</string>
+    <string name="phone_hint">No Telepon</string>
+    <string name="id_card_hint">No. KTP / NIK</string>
+    <string name="address_hint">Alamat (Sesuai KTP)</string>
+    <string name="man">Pria</string>
+    <string name="woman">Wanita</string>
+    <string name="photo_scan_ktp">Photo / Scan KTP</string>
+    <string name="club_hint">Klub / Satuan</string>
 </resources>

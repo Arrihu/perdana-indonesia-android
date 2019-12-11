@@ -1,4 +1,4 @@
-package app.perdana.indonesia.ui.intro
+package app.perdana.indonesia.ui.intro.welcome
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,18 +7,18 @@ import androidx.appcompat.app.AppCompatActivity
 import app.perdana.indonesia.R
 import app.perdana.indonesia.core.utils.Constants
 import app.perdana.indonesia.core.utils.LocalStorage
-import app.perdana.indonesia.ui.main.MainActivity
+import app.perdana.indonesia.ui.intro.auth.AuthIntroActivity
 import kotlinx.android.synthetic.main.button_primary.*
 import kotlinx.android.synthetic.main.button_unpriority.*
-import kotlinx.android.synthetic.main.intro_activity.*
 import kotlinx.android.synthetic.main.textview_primary_heading.*
+import kotlinx.android.synthetic.main.welcome_intro_activity.*
 
 /**
  * Created by ebysofyan on 12/2/19.
  */
-class IntroActivity : AppCompatActivity(), View.OnClickListener {
+class WelcomeIntroActivity : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var imagesAdapter: IntroImagesViewPagerAdapter
+    private lateinit var imagesAdapter: WelcomeIntroImagesViewPagerAdapter
     private val introImages = mutableListOf<String>(
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSu7MJdDUdk-MsXIrLHFN_EgQNTgewJ0BuFUcAARqsgNTfbPNyt&s",
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSu7MJdDUdk-MsXIrLHFN_EgQNTgewJ0BuFUcAARqsgNTfbPNyt&s",
@@ -27,7 +27,7 @@ class IntroActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.intro_activity)
+        setContentView(R.layout.welcome_intro_activity)
 
         initializeUi()
     }
@@ -47,7 +47,8 @@ class IntroActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initViewPager() {
-        imagesAdapter = IntroImagesViewPagerAdapter()
+        imagesAdapter =
+            WelcomeIntroImagesViewPagerAdapter()
         imagesAdapter.setValues(introImages)
         intro_view_pager.adapter = imagesAdapter
         intro_dots_view.setViewPager(intro_view_pager)
@@ -70,7 +71,7 @@ class IntroActivity : AppCompatActivity(), View.OnClickListener {
         LocalStorage.put(this, Constants.IS_INTRO_DISPLAYED, "1")
         finish()
 
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, AuthIntroActivity::class.java))
     }
 
     override fun onClick(v: View?) {

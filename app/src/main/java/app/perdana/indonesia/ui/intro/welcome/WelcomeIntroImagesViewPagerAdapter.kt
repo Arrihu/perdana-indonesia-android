@@ -1,4 +1,4 @@
-package app.perdana.indonesia.ui.intro
+package app.perdana.indonesia.ui.intro.welcome
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +11,7 @@ import app.perdana.indonesia.core.extension.loadWithGlidePlaceholder
 /**
  * Created by ebysofyan on 12/10/19.
  */
-class IntroImagesViewPagerAdapter : PagerAdapter() {
+class WelcomeIntroImagesViewPagerAdapter : PagerAdapter() {
 
     private val images = mutableListOf<String>()
 
