@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-        android:icon="@drawable/ic_barcode_scan_grey600_24dp"
+        android:icon="@drawable/perdana_indonesia"
         android:title="@string/navigation_home_title"
         app:showAsAction="always" />
 
-
     <item
         android:icon="@drawable/ic_barcode_scan_grey600_24dp"
-        android:title="@string/navigation_home_title"
+        android:title="@string/navigation_presence_title"
         app:showAsAction="always" />
 
-
     <item
-        android:icon="@drawable/ic_barcode_scan_grey600_24dp"
-        android:title="@string/navigation_home_title"
+        android:icon="@drawable/ic_bullseye_arrow_grey600_24dp"
+        android:title="@string/navigation_scoring_title"
         app:showAsAction="always" />
 
-
     <item
-        android:icon="@drawable/ic_barcode_scan_grey600_24dp"
-        android:title="@string/navigation_home_title"
+        android:icon="@drawable/ic_account_circle_outline_grey600_24dp"
+        android:title="@string/navigation_profile_title"
         app:showAsAction="always" />
 </menu>

@@ -19,5 +19,11 @@
     <string name="man">Pria</string>
     <string name="woman">Wanita</string>
     <string name="photo_scan_ktp">Photo / Scan KTP</string>
-    <string name="club_hint">Klub / Satuan</string>
+    <string name="club_hint">Pilih Klub</string>
+    <string name="no_internet_connection">Tidak dapat terkoneksi ke server</string>
+    <string name="club">Klub</string>
+    <string name="unit">Satuan</string>
+    <string name="navigation_presence_title">Presensi</string>
+    <string name="navigation_profile_title">Profil</string>
+    <string name="navigation_scoring_title">Skoring</string>
 </resources>

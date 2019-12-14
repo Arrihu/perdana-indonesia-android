@@ -7,7 +7,11 @@ import android.os.Handler
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import app.perdana.indonesia.R
+import app.perdana.indonesia.core.utils.Constants
+import app.perdana.indonesia.core.utils.LocalStorage
+import app.perdana.indonesia.ui.intro.auth.AuthIntroActivity
 import app.perdana.indonesia.ui.intro.welcome.WelcomeIntroActivity
+import app.perdana.indonesia.ui.main.MainActivity
 
 /**
  * Created by ebysofyan on 12/2/19.
@@ -28,7 +32,19 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun navigateTo() {
-        startActivity(Intent(this, WelcomeIntroActivity::class.java))
+        val isIntroDisplayed =
+            LocalStorage.getString(this, Constants.IS_INTRO_DISPLAYED)?.isNotEmpty() ?: false
+        val intent = if (isIntroDisplayed) {
+            val isAuthenticated =
+                LocalStorage.getString(this, Constants.TOKEN)?.isNotEmpty() ?: false
+
+            if (isAuthenticated) Intent(this, MainActivity::class.java)
+            else Intent(this, AuthIntroActivity::class.java)
+        } else {
+            Intent(this, WelcomeIntroActivity::class.java)
+        }
+
+        startActivity(intent)
     }
 
     private fun removeStatusBar() {
