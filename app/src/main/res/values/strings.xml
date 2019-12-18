@@ -26,4 +26,15 @@
     <string name="navigation_presence_title">Presensi</string>
     <string name="navigation_profile_title">Profil</string>
     <string name="navigation_scoring_title">Skoring</string>
+    <string name="top_score_archer">Top Score Archer</string>
+    <string name="number_symbol">#</string>
+    <string name="name">Nama</string>
+    <string name="score">Skor</string>
+    <string name="distance">Jarak</string>
+    <string name="target">Target</string>
+    <string name="initial_number">1</string>
+    <string name="initial_name">Eby Sofyan</string>
+    <string name="initial_score">1080</string>
+    <string name="initial_distance">30m</string>
+    <string name="initial_target">Puta</string>
 </resources>

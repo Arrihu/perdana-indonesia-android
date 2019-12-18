@@ -3,21 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/bottom_menu_home"
         android:icon="@drawable/perdana_indonesia"
         android:title="@string/navigation_home_title"
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/bottom_menu_presence"
         android:icon="@drawable/ic_barcode_scan_grey600_24dp"
         android:title="@string/navigation_presence_title"
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/bottom_menu_scoring"
         android:icon="@drawable/ic_bullseye_arrow_grey600_24dp"
         android:title="@string/navigation_scoring_title"
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/bottom_menu_profile"
         android:icon="@drawable/ic_account_circle_outline_grey600_24dp"
         android:title="@string/navigation_profile_title"
         app:showAsAction="always" />
