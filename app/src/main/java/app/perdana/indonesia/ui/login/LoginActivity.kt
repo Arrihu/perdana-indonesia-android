@@ -15,11 +15,12 @@ import app.perdana.indonesia.core.utils.Constants
 import app.perdana.indonesia.core.utils.LocalStorage
 import app.perdana.indonesia.data.remote.model.LoginRequest
 import app.perdana.indonesia.data.remote.model.LoginResponse
+import app.perdana.indonesia.ui.main.MainActivity
 import app.perdana.indonesia.ui.register.RegisterActivity
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.button_primary.*
 import kotlinx.android.synthetic.main.login_activity.*
-import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.toolbar_light_theme.*
 import okhttp3.ResponseBody
 import org.jetbrains.anko.longToast
 import retrofit2.Response
@@ -104,6 +105,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         LocalStorage.put(this, Constants.TOKEN, body?.token.toString())
         LocalStorage.put(this, Constants.USER_ROLE, body?.role.toString())
         LocalStorage.put(this, Constants.USER_PROFILE, Gson().toJson(body?.member))
+
+        startActivity(Intent(this, MainActivity::class.java))
+        finishAffinity()
     }
 
     private fun onResponseFailed(errorBody: ResponseBody?) {

@@ -20,6 +20,11 @@ abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<BaseViewHolder>
 
     fun getItems(): MutableList<T> = list
 
+    fun addItemIndexed(newT: T, index: Int = 0) {
+        getItems().add(index, newT)
+        notifyItemInserted(0)
+    }
+
     fun addItem(newT: T) {
         getItems().add(newT)
         notifyDataSetChanged()

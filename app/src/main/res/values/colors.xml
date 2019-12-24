@@ -6,8 +6,8 @@
 
     <color name="colorPrimaryDarkOpacity">#892F374C</color>
     <color name="colorPrimaryDarkOpacity200">#262F374C</color>
+    <color name="colorPrimaryDarkOpacity50">#0D2F374C</color>
 
-    <color name="indonesian_red">#ff0000</color>
     <color name="grey_200">#F5F5F5</color>
 
     <color name="primaryText">#212121</color>

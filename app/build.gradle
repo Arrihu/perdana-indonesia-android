@@ -37,8 +37,8 @@ android {
         def baseUrl = properties.getProperty("baseurl")
 
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
             buildConfigField 'String', 'BASE_URL', baseUrl
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -100,6 +100,7 @@ dependencies {
     implementation 'com.etebarian:meow-bottom-navigation:1.0.4'
 
     implementation 'com.github.wildma:IDCardCamera:1.1.0'
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

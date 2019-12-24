@@ -23,7 +23,11 @@ object LocalStorage {
     fun getString(context: Context, key: String) =
         getSharedPreferences(context)?.getString(key, null)
 
-    fun clear(context: Context){
-        getSharedPreferences(context)?.edit()?.clear()?.apply()
+    fun clear(context: Context) {
+        getSharedPreferences(context)?.edit()?.clear()?.putString(Constants.IS_INTRO_DISPLAYED, "1")
+            ?.apply()
     }
 }
+
+val Context.formattedToken get() = "Token ${LocalStorage.getString(this, Constants.TOKEN)}"
+val Context.currentUserRole get() = LocalStorage.getString(this, Constants.USER_ROLE)

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Perdana Indonesia - NTB</string>
+    <string name="app_name">Perdana NTB</string>
     <string name="navigation_home_title">Home</string>
     <string name="lorem">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
     <string name="next">Lanjutkan</string>
@@ -19,7 +19,7 @@
     <string name="man">Pria</string>
     <string name="woman">Wanita</string>
     <string name="photo_scan_ktp">Photo / Scan KTP</string>
-    <string name="club_hint">Pilih Klub</string>
+    <string name="club_hint">Pilih Klub (Tekan untuk memilih)</string>
     <string name="no_internet_connection">Tidak dapat terkoneksi ke server</string>
     <string name="club">Klub</string>
     <string name="unit">Satuan</string>
@@ -37,4 +37,16 @@
     <string name="initial_score">1080</string>
     <string name="initial_distance">30m</string>
     <string name="initial_target">Puta</string>
+    <string name="spinner_regional_hint">Pilih Rayon</string>
+    <string name="spinner_prov_hint">Pilih Provinsi</string>
+    <string name="spinner_branch_hint">Pilih Cabang</string>
+    <string name="logout">Keluar</string>
+    <string name="personal_info">Informasi Pribadi</string>
+    <string name="physic_info">Informasi Fisik</string>
+    <string name="create_presence">Buat Presensi</string>
+    <string name="add_new_presence">Buat Presensi Baru</string>
+    <string name="add_presence_hint">Keterangan Absensi Ex : Latihan di lapangan Pelembak</string>
+    <string name="save">Simpan</string>
+    <string name="dummy_title">Lorem Ipsum Dolor Sit Amet Dan sebagainya entah saya juga lupa</string>
+    <string name="dummy_date">Senin, 22 Desember 2019</string>
 </resources>

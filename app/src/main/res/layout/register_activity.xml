@@ -54,6 +54,48 @@
                     android:textSize="18sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="4dp"
+                android:text="@string/spinner_regional_hint"
+                android:textColor="@color/primaryText"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/register_club_spinner_regional"
+                android:layout_width="match_parent"
+                android:layout_height="60dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="4dp"
+                android:text="@string/spinner_prov_hint"
+                android:textColor="@color/primaryText"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/register_club_spinner_province"
+                android:layout_width="match_parent"
+                android:layout_height="60dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="4dp"
+                android:text="@string/spinner_branch_hint"
+                android:textColor="@color/primaryText"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/register_club_spinner_branch"
+                android:layout_width="match_parent"
+                android:layout_height="60dp" />
+
             <RadioGroup
                 android:id="@+id/register_radio_group_org"
                 android:layout_width="match_parent"
@@ -81,7 +123,7 @@
                 android:id="@+id/register_club_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:enabled="false"
+                android:focusable="false"
                 android:hint="@string/club_hint"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -203,6 +245,15 @@
 
                 <ImageView
                     android:id="@+id/register_card_photo_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/app_name"
+                    android:padding="4dp"
+                    android:scaleType="centerCrop" />
+
+                <ImageView
+                    android:id="@+id/register_card_photo_image_camera"
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:layout_gravity="center"

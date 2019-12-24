@@ -6,8 +6,6 @@ import android.content.Intent
 import android.location.LocationManager
 import android.os.Build
 import android.provider.Settings
-import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import org.jetbrains.anko.alert
 
 

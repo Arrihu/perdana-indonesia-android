@@ -49,6 +49,8 @@ fun TextInputEditText.wrapText() {
     }
 }
 
-fun TextInputEditText.validatePhone(): Boolean = this.text?.toString()?.startsWith("0") ?: false || this.text?.toString()?.startsWith("+62") ?: false
+fun TextInputEditText.validatePhone(): Boolean =
+    this.text?.toString()?.startsWith("0") ?: false || this.text?.toString()?.startsWith("+62") ?: false
 
-fun EditText.validatePhone(): Boolean = this.text?.toString()?.startsWith("0") ?: false || this.text?.toString()?.startsWith("+62") ?: false
+fun EditText.validatePhone(): Boolean =
+    this.text?.toString()?.startsWith("0") ?: false || this.text?.toString()?.startsWith("+62") ?: false

@@ -12,7 +12,7 @@ data class LoginRequest(
 )
 
 data class LoginResponse(
-    val member: Member,
+    val member: PresenceItemMember,
     val role: String? = null,
     val token: String? = null
 )

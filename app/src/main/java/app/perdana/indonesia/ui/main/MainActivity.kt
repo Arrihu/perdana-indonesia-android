@@ -9,6 +9,8 @@ import app.perdana.indonesia.R
 import app.perdana.indonesia.core.adapters.ViewPagerAdapter
 import app.perdana.indonesia.core.extension.setupActionbar
 import app.perdana.indonesia.ui.fragments.main.MainFragment
+import app.perdana.indonesia.ui.fragments.presence.PresenceFragment
+import app.perdana.indonesia.ui.fragments.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.main_activity.*
 
@@ -85,11 +87,12 @@ class MainActivity : AppCompatActivity() {
     private fun initViewPager() {
         val adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.fragments.add(MainFragment.newInstance() to getString(R.string.navigation_home_title))
-        adapter.fragments.add(MainFragment.newInstance() to getString(R.string.navigation_presence_title))
+        adapter.fragments.add(PresenceFragment.newInstance() to getString(R.string.navigation_presence_title))
         adapter.fragments.add(MainFragment.newInstance() to getString(R.string.navigation_scoring_title))
-        adapter.fragments.add(MainFragment.newInstance() to getString(R.string.navigation_profile_title))
+        adapter.fragments.add(ProfileFragment.newInstance() to getString(R.string.navigation_profile_title))
 
         main_view_pager.addOnPageChangeListener(onPageChangeListener)
+        main_view_pager.offscreenPageLimit = 4
         main_view_pager.adapter = adapter
     }
 }
