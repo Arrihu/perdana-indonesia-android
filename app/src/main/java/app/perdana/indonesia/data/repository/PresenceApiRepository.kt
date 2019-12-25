@@ -3,6 +3,7 @@ package app.perdana.indonesia.data.repository
 import app.perdana.indonesia.core.utils.NetworkConfig
 import app.perdana.indonesia.data.remote.api.PresenceApiService
 import app.perdana.indonesia.data.remote.model.PresenceContainerResponse
+import app.perdana.indonesia.data.remote.model.PresenceItem
 import retrofit2.Response
 
 /**
@@ -38,10 +39,10 @@ class PresenceApiRepository {
     suspend fun changeItemStatus(
         token: String,
         id: String,
-        status: String
-    ): Response<PresenceContainerResponse> {
+        queryMap: HashMap<String, String>
+    ): Response<PresenceItem> {
         val service = NetworkConfig.client.create(PresenceApiService::class.java)
-        return service.changeItemStatus(token, id, status)
+        return service.changeItemStatus(token, id, queryMap)
     }
 
     suspend fun addNewPresenceContainer(

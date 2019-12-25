@@ -1,5 +1,6 @@
-package app.perdana.indonesia.ui.fragments.presence
+package app.perdana.indonesia.ui.fragments.presence.container
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,22 +17,25 @@ import app.perdana.indonesia.R
 import app.perdana.indonesia.core.extension.getErrorDetail
 import app.perdana.indonesia.core.extension.gone
 import app.perdana.indonesia.core.extension.visible
+import app.perdana.indonesia.core.utils.Constants
 import app.perdana.indonesia.core.utils.ProgressDialogHelper
 import app.perdana.indonesia.core.utils.formattedToken
 import app.perdana.indonesia.data.remote.model.PresenceContainerResponse
+import app.perdana.indonesia.ui.fragments.presence.item.PresenceItemActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.presence_fragment.*
 import org.jetbrains.anko.longToast
 import retrofit2.Response
 
-class PresenceFragment : Fragment() {
+class PresenceContainerFragment : Fragment() {
 
     companion object {
-        fun newInstance() = PresenceFragment()
+        fun newInstance() =
+            PresenceContainerFragment()
     }
 
-    private lateinit var viewModel: PresenceViewModel
+    private lateinit var viewModel: PresenceContainerViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +46,7 @@ class PresenceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(PresenceViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(PresenceContainerViewModel::class.java)
         initializeUi()
     }
 
@@ -73,11 +78,16 @@ class PresenceFragment : Fragment() {
         } else context?.longToast(getString(R.string.no_internet_connection))
     }
 
-    private lateinit var adapter: PresenceContainerRecyclerVieAdapter
+    private lateinit var adapter: PresenceContainerRecyclerViewAdapter
     private fun initPresenceContainerRecyclerView() {
-        adapter = PresenceContainerRecyclerVieAdapter { pc ->
-
-        }
+        adapter =
+            PresenceContainerRecyclerViewAdapter { pc ->
+                val bundle = bundleOf(Constants.PRESENCE_CONTAINER_RESPONSE_OBJ to pc)
+                val intent = Intent(context, PresenceItemActivity::class.java).apply {
+                    putExtras(bundle)
+                }
+                startActivity(intent)
+            }
         presence_recycler_view.layoutManager = LinearLayoutManager(context)
         presence_recycler_view.adapter = adapter
     }

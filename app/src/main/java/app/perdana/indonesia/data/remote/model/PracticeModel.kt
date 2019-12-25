@@ -11,3 +11,18 @@ class TopScoring(
     val distance: String? = null,
     val target: String? = null
 )
+
+data class PracticeContainer(
+    val address: String,
+    val arrow: Int,
+    val completed: Boolean,
+    val created: String,
+    val distance: Double,
+    val id: Int,
+    val member: Int,
+    val modified: String,
+    val note: String,
+    val series: Int,
+    val target_type: String
+)
+

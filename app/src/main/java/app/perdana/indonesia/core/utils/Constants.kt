@@ -4,6 +4,9 @@ import app.perdana.indonesia.BuildConfig
 
 
 object Constants {
+    const val ARCHER_MEMBER_RESPONSE_OBJ = "ARCHER_MEMBER_RESPONSE_OBJ"
+    const val SCANNER_RESULT = "SCANNER_RESULT"
+    const val PRESENCE_CONTAINER_RESPONSE_OBJ = "PRESENCE_CONTAINER_RESPONSE_OBJ"
     const val USER_PROFILE = "USER_PROFILE"
     const val USER_ROLE = "USER_ROLE"
     const val TOKEN = "TOKEN"

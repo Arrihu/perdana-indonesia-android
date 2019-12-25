@@ -1,4 +1,4 @@
-package app.perdana.indonesia.ui.fragments.presence
+package app.perdana.indonesia.ui.fragments.presence.container
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import retrofit2.HttpException
 
-class PresenceViewModel : ViewModel() {
+class PresenceContainerViewModel : ViewModel() {
     private val repository = PresenceApiRepository.getInstance()
 
     private var job = SupervisorJob() + Dispatchers.IO
@@ -38,14 +38,6 @@ class PresenceViewModel : ViewModel() {
     fun getPresencesContainer(token: String, id: String) = liveData(job) {
         try {
             repository?.getPresencesContainer(token, id).also { emit(it) }
-        } catch (e: HttpException) {
-            emit(null)
-        }
-    }
-
-    fun getPresencesContainer(token: String, id: String, status: String) = liveData(job) {
-        try {
-            repository?.changeItemStatus(token, id, status).also { emit(it) }
         } catch (e: HttpException) {
             emit(null)
         }

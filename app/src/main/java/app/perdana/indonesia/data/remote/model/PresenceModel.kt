@@ -1,10 +1,14 @@
 package app.perdana.indonesia.data.remote.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
 /**
  * Created by ebysofyan on 12/2/19.
  */
 
 
+@Parcelize
 data class PresenceContainerResponse(
     val closed: Boolean? = false,
     val club: Int? = 0,
@@ -15,20 +19,25 @@ data class PresenceContainerResponse(
     val satuan: Int? = 0,
     val title: String? = null,
     val presence_items: MutableList<PresenceItem>? = mutableListOf()
-)
+) : Parcelable
 
+@Parcelize
 data class PresenceItem(
     val container: Int,
     val created: String,
     val id: Int,
     val member: PresenceItemMember,
     val modified: String,
-    val note: Any,
-    val status: String,
-    val supervisor: Any
-)
+    val note: String? = null,
+    var status: String,
+    val supervisor: PresenceItemMember
+) : Parcelable
 
+@Parcelize
 data class PresenceItemMember(
+    val member_id: String,
     val full_name: String,
+    val photo: String,
+    val public_photo: String,
     val id: Int
-)
+) : Parcelable

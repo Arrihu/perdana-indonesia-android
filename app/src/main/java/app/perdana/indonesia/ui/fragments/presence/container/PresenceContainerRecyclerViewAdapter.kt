@@ -1,4 +1,4 @@
-package app.perdana.indonesia.ui.fragments.presence
+package app.perdana.indonesia.ui.fragments.presence.container
 
 import android.view.View
 import app.perdana.indonesia.R
@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.presence_container_item_view.view.*
 /**
  * Created by ebysofyan on 12/25/19.
  */
-class PresenceContainerRecyclerVieAdapter(private val onItemClickListener: (PresenceContainerResponse) -> Unit) :
+class PresenceContainerRecyclerViewAdapter(private val onItemClickListener: (PresenceContainerResponse) -> Unit) :
     BaseRecyclerViewAdapter<PresenceContainerResponse>() {
     override fun getLayoutResourceId(): Int = R.layout.presence_container_item_view
 
@@ -18,7 +18,7 @@ class PresenceContainerRecyclerVieAdapter(private val onItemClickListener: (Pres
         view.presence_container_item_title.text = data.title
         view.presence_container_item_date.text = data.created?.fullDateTimeFormat()
 
-        view.setOnClickListener {
+        view.presence_container_item_container.setOnClickListener {
             onItemClickListener.invoke(data)
         }
     }

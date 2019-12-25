@@ -8,9 +8,12 @@
     app:cardUseCompatPadding="true">
 
     <LinearLayout
+        android:id="@+id/presence_container_item_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -26,10 +29,8 @@
             android:id="@+id/presence_container_item_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="8dp"
             android:text="@string/dummy_date"
             android:textColor="@color/secondaryText"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

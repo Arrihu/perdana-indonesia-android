@@ -9,6 +9,9 @@
     <color name="colorPrimaryDarkOpacity50">#0D2F374C</color>
 
     <color name="grey_200">#F5F5F5</color>
+    <color name="color_green">#00e500</color>
+    <color name="color_red">#e50000</color>
+    <color name="color_orange">#e57300</color>
 
     <color name="primaryText">#212121</color>
     <color name="secondaryText">#757575</color>

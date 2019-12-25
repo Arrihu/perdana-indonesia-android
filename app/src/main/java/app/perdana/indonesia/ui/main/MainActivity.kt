@@ -8,9 +8,12 @@ import androidx.viewpager.widget.ViewPager
 import app.perdana.indonesia.R
 import app.perdana.indonesia.core.adapters.ViewPagerAdapter
 import app.perdana.indonesia.core.extension.setupActionbar
+import app.perdana.indonesia.core.utils.Constants
+import app.perdana.indonesia.core.utils.currentUserRole
 import app.perdana.indonesia.ui.fragments.main.MainFragment
-import app.perdana.indonesia.ui.fragments.presence.PresenceFragment
+import app.perdana.indonesia.ui.fragments.presence.container.PresenceContainerFragment
 import app.perdana.indonesia.ui.fragments.profile.ProfileFragment
+import app.perdana.indonesia.ui.fragments.scoring.members.ScoringMemberFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.main_activity.*
 
@@ -28,11 +31,15 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.bottom_menu_scoring -> {
-                    main_view_pager.currentItem = 2
+                    if (currentUserRole != Constants.UserRole.CLUB_SATUAN_MANAGER) {
+                        main_view_pager.currentItem = 1
+                    } else {
+                        main_view_pager.currentItem = 2
+                    }
                     true
                 }
                 R.id.bottom_menu_profile -> {
-                    main_view_pager.currentItem = 3
+                    main_view_pager.currentItem = main_view_pager.adapter?.count?.minus(1)!!
                     true
                 }
                 else -> false
@@ -50,6 +57,9 @@ class MainActivity : AppCompatActivity() {
         main_toolbar.setupActionbar(this, "", false)
         main_bottom_navigation_view.apply {
             itemIconTintList = null
+            if (currentUserRole != Constants.UserRole.CLUB_SATUAN_MANAGER) {
+                menu.removeItem(R.id.bottom_menu_presence)
+            }
             setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         }
 
@@ -87,8 +97,10 @@ class MainActivity : AppCompatActivity() {
     private fun initViewPager() {
         val adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.fragments.add(MainFragment.newInstance() to getString(R.string.navigation_home_title))
-        adapter.fragments.add(PresenceFragment.newInstance() to getString(R.string.navigation_presence_title))
-        adapter.fragments.add(MainFragment.newInstance() to getString(R.string.navigation_scoring_title))
+        if (currentUserRole == Constants.UserRole.CLUB_SATUAN_MANAGER) {
+            adapter.fragments.add(PresenceContainerFragment.newInstance() to getString(R.string.navigation_presence_title))
+        }
+        adapter.fragments.add(ScoringMemberFragment.newInstance() to getString(R.string.navigation_scoring_title))
         adapter.fragments.add(ProfileFragment.newInstance() to getString(R.string.navigation_profile_title))
 
         main_view_pager.addOnPageChangeListener(onPageChangeListener)

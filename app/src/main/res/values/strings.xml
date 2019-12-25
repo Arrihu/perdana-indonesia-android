@@ -49,4 +49,6 @@
     <string name="save">Simpan</string>
     <string name="dummy_title">Lorem Ipsum Dolor Sit Amet Dan sebagainya entah saya juga lupa</string>
     <string name="dummy_date">Senin, 22 Desember 2019</string>
+    <string name="presence">Hadir</string>
+    <string name="find_member">Cari peserta . . .</string>
 </resources>

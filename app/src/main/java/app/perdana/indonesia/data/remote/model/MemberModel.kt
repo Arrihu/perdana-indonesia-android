@@ -1,6 +1,8 @@
 package app.perdana.indonesia.data.remote.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Created by ebysofyan on 12/2/19.
@@ -37,6 +39,7 @@ data class MemberRequest(
     val user: User
 )
 
+@Parcelize
 data class ArcherMemberResponse(
     val address: String? = null,
     val approved: Boolean? = false,
@@ -66,7 +69,7 @@ data class ArcherMemberResponse(
     @Expose
     val satuan: Satuan? = null,
     val user: User
-)
+) : Parcelable
 
 data class ClubUnitCommiteMemberResponse(
     val address: String? = null,
@@ -100,10 +103,11 @@ data class ClubUnitCommiteMemberResponse(
     val satuan: Int? = null
 )
 
+@Parcelize
 data class User(
     val email: String? = null,
     val first_name: String? = null,
     val last_name: String? = null,
     val username: String? = null,
     val password: String? = null
-)
+) : Parcelable

@@ -36,7 +36,12 @@
         <activity android:name=".ui.intro.welcome.WelcomeIntroActivity" />
         <activity android:name=".ui.intro.auth.AuthIntroActivity" />
         <activity android:name=".ui.register.RegisterActivity" />
-        <activity android:name=".ui.main.MainActivity" />
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".ui.fragments.presence.item.PresenceItemActivity" />
+        <activity android:name=".ui.fragments.presence.scanner.PresenceScannerActivity" />
+        <activity android:name=".ui.fragments.scoring.practices.ScoringPracticeContainerActivity" />
     </application>
 
 </manifest>
