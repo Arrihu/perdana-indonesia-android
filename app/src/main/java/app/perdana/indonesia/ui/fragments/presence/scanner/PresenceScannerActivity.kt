@@ -25,8 +25,8 @@ class PresenceScannerActivity : AppCompatActivity(), ZXingScannerView.ResultHand
 
         presence_scanner_flash.setOnClickListener {
             presence_scanner_view.flash = !presence_scanner_view.flash
-            if (presence_scanner_view.flash) presence_scanner_flash.setImageResource(R.drawable.ic_flash_on)
-            else presence_scanner_flash.setImageResource(R.drawable.ic_flash_off)
+            if (presence_scanner_view.flash) presence_scanner_flash.setImageResource(R.drawable.ic_flash_off)
+            else presence_scanner_flash.setImageResource(R.drawable.ic_flash_on)
         }
     }
 

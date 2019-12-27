@@ -38,7 +38,8 @@
                 android:paddingRight="8dp"
                 android:text="@string/initial_name"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="21sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/presence_item_item_subtitle"

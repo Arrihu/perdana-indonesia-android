@@ -12,7 +12,7 @@ import app.perdana.indonesia.core.utils.Constants
 import app.perdana.indonesia.core.utils.currentUserRole
 import app.perdana.indonesia.ui.fragments.main.MainFragment
 import app.perdana.indonesia.ui.fragments.presence.container.PresenceContainerFragment
-import app.perdana.indonesia.ui.fragments.profile.ProfileFragment
+import app.perdana.indonesia.ui.fragments.profile.detail.ProfileDetailFragment
 import app.perdana.indonesia.ui.fragments.scoring.members.ScoringMemberFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.main_activity.*
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
             adapter.fragments.add(PresenceContainerFragment.newInstance() to getString(R.string.navigation_presence_title))
         }
         adapter.fragments.add(ScoringMemberFragment.newInstance() to getString(R.string.navigation_scoring_title))
-        adapter.fragments.add(ProfileFragment.newInstance() to getString(R.string.navigation_profile_title))
+        adapter.fragments.add(ProfileDetailFragment.newInstance() to getString(R.string.navigation_profile_title))
 
         main_view_pager.addOnPageChangeListener(onPageChangeListener)
         main_view_pager.offscreenPageLimit = 4

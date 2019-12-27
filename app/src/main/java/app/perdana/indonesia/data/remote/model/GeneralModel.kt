@@ -7,6 +7,12 @@ import kotlinx.android.parcel.Parcelize
  * Created by ebysofyan on 12/23/19.
  */
 
+data class Menu(
+    val title: String,
+    val icon: Int,
+    val badge: String = "",
+    val module: String = ""
+)
 
 data class Regional(
     val id: Int,

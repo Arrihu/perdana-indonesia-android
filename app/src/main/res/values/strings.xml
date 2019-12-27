@@ -51,4 +51,7 @@
     <string name="dummy_date">Senin, 22 Desember 2019</string>
     <string name="presence">Hadir</string>
     <string name="find_member">Cari peserta . . .</string>
+    <string name="applicant_hint">Pendaftar</string>
+    <string name="notification_badge_hint">9+</string>
+    <string name="notification_menu_title">Notifikasi</string>
 </resources>

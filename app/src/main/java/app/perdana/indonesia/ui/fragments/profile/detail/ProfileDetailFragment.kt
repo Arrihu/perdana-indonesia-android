@@ -1,4 +1,4 @@
-package app.perdana.indonesia.ui.fragments.profile
+package app.perdana.indonesia.ui.fragments.profile.detail
 
 import android.content.Intent
 import android.os.Bundle
@@ -29,13 +29,14 @@ import kotlinx.android.synthetic.main.profile_item_view.view.*
 import org.jetbrains.anko.longToast
 import retrofit2.Response
 
-class ProfileFragment : Fragment(), View.OnClickListener {
+class ProfileDetailFragment : Fragment(), View.OnClickListener {
 
     companion object {
-        fun newInstance() = ProfileFragment()
+        fun newInstance() =
+            ProfileDetailFragment()
     }
 
-    private lateinit var viewModel: ProfileViewModel
+    private lateinit var viewModel: ProfileDetailViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +47,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ProfileDetailViewModel::class.java)
 
         initializeUi()
     }

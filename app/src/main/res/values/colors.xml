@@ -5,6 +5,7 @@
     <color name="colorAccent">#2F374C</color>
 
     <color name="colorPrimaryDarkOpacity">#892F374C</color>
+    <color name="colorPrimaryDarkOpacity800">#CC2F374C</color>
     <color name="colorPrimaryDarkOpacity200">#262F374C</color>
     <color name="colorPrimaryDarkOpacity50">#0D2F374C</color>
 

@@ -42,6 +42,12 @@
         <activity android:name=".ui.fragments.presence.item.PresenceItemActivity" />
         <activity android:name=".ui.fragments.presence.scanner.PresenceScannerActivity" />
         <activity android:name=".ui.fragments.scoring.practices.ScoringPracticeContainerActivity" />
+        <activity
+            android:name=".ui.fragments.profile.edit.archer.ArcherProfileEditActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.fragments.profile.edit.club_unit.ClubUnitProfileEditActivity"
+            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>
