@@ -19,11 +19,21 @@
         app:subtitleTextAppearance="@style/ToolbarSubTitleAppearance"
         app:titleTextAppearance="@style/ToolbarTitleAppearance" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/scoring_practice_button_add_new"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        app:layout_constraintTop_toBottomOf="@id/scoring_practice_toolbar"
+        android:layout_margin="20dp"
+        android:text="@string/create_practice"
+        app:icon="@drawable/ic_pencil" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scoring_practice_toolbar">
+        app:layout_constraintTop_toBottomOf="@id/scoring_practice_button_add_new">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/scoring_practice_recycler_view"

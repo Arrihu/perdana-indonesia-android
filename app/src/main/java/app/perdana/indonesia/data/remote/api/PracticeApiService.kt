@@ -11,6 +11,6 @@ interface PracticeApiService {
     @GET("/api/v1/practices/list")
     suspend fun fetchPracticesContainer(@Header("Authorization") token: String, @Query("archer_id") archerId: String): Response<MutableList<PracticeContainer>>
 
-    @POST("/api/v1/practices/list")
+    @POST("/api/v1/practices/list/")
     suspend fun addNewPracticeContainer(@Header("Authorization") token: String, @Query("archer_id") archerId: String, @Body practicesContainer: PracticeContainer): Response<PracticeContainer>
 }

@@ -46,4 +46,9 @@ class GeneralApiRepository {
         val service = NetworkConfig.client.create(GeneralApiService::class.java)
         return service.fetchOpenUnit(branchId)
     }
+
+    suspend fun fetchArcheryRanges(token: String): Response<List<ArcheryRange>> {
+        val service = NetworkConfig.client.create(GeneralApiService::class.java)
+        return service.fetchArcheryRanges(token)
+    }
 }

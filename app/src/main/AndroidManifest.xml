@@ -8,6 +8,18 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-feature
+        android:name="android.hardware.location.network"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -39,15 +51,41 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.fragments.presence.item.PresenceItemActivity" />
-        <activity android:name=".ui.fragments.presence.scanner.PresenceScannerActivity" />
-        <activity android:name=".ui.fragments.scoring.practices.ScoringPracticeContainerActivity" />
+        <activity android:name=".ui.screens.presence.item.PresenceItemActivity" />
+        <activity android:name=".ui.screens.presence.scanner.PresenceScannerActivity" />
+        <activity android:name=".ui.screens.scoring.practices.list.ScoringPracticeContainerActivity" />
         <activity
-            android:name=".ui.fragments.profile.edit.archer.ArcherProfileEditActivity"
+            android:name=".ui.screens.scoring.practices.add.ScoringPracticeContainerAddActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ui.fragments.profile.edit.club_unit.ClubUnitProfileEditActivity"
+            android:name=".ui.screens.profile.edit.archer.ArcherProfileEditActivity"
             android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.screens.profile.edit.club_unit.ClubUnitProfileEditActivity"
+            android:windowSoftInputMode="stateHidden" />
+
+
+        <activity
+            android:name="com.schibstedspain.leku.LocationPickerActivity"
+            android:label="@string/leku_title_activity_location_picker"
+            android:parentActivityName=".ui.screens.scoring.practices.list.ScoringPracticeContainerActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/leku_searchable" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.screens.scoring.practices.list.ScoringPracticeContainerActivity" />
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_api_key" />
     </application>
 
 </manifest>

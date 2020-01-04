@@ -57,6 +57,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initActionListener() {
         primary_button_dark.setOnClickListener(this)
+        login_text_register.setOnClickListener(this)
     }
 
     private fun validateLoginForm(): Boolean {
@@ -120,8 +121,13 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 submitLogin()
             }
 
-            v === login_text_no_account -> {
+//            v === login_text_no_account -> {
+//                startActivity(Intent(this, RegisterActivity::class.java))
+//            }
+
+            v === login_text_register -> {
                 startActivity(Intent(this, RegisterActivity::class.java))
+                finish()
             }
         }
     }

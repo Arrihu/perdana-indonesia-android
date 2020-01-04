@@ -13,16 +13,17 @@ class TopScoring(
 )
 
 data class PracticeContainer(
-    val address: String,
-    val arrow: Int,
-    val completed: Boolean,
-    val created: String,
-    val distance: Double,
-    val id: Int,
-    val member: Int,
-    val modified: String,
-    val note: String,
-    val series: Int,
-    val target_type: String
+    val address: String? = null,
+    val arrow: String,
+    val completed: Boolean = false,
+    val created: String? = null,
+    val distance: String,
+    val id: Int? = null,
+    val member: Int? = null,
+    val modified: String? = null,
+    val note: String? = null,
+    val series: String,
+    val target_type: String,
+    val archery_range: Int? = null
 )
 

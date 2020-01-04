@@ -54,4 +54,14 @@
     <string name="applicant_hint">Pendaftar</string>
     <string name="notification_badge_hint">9+</string>
     <string name="notification_menu_title">Notifikasi</string>
+
+    <string name="google_maps_api_key" translatable="false">AIzaSyBPw7MnKt3KemuIumvwqbqnmDQltXUNxzI</string>
+    <string name="create_practice">Buat Form Skoring</string>
+    <string name="target_type_hint">Jenis Target</string>
+    <string name="distance_hint">Jarak (Dalam Meter)</string>
+    <string name="series_hint">Jumlah Rambahan</string>
+    <string name="arrow_hint">Jumlah Arrow Setiap Rambahan</string>
+    <string name="notes_hint">Informasi Tambahan</string>
+    <string name="archery_range_hint">Lokasi Latihan</string>
+    <string name="custom_address_hint">Nama Lokasi Latihan</string>
 </resources>

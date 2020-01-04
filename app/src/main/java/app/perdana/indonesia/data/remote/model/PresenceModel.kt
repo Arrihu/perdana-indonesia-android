@@ -7,6 +7,11 @@ import kotlinx.android.parcel.Parcelize
  * Created by ebysofyan on 12/2/19.
  */
 
+data class PresenceContainerRequest(
+    var title: String? = null,
+    var latitude: String? = null,
+    var longitude: String? = null
+)
 
 @Parcelize
 data class PresenceContainerResponse(

@@ -3,6 +3,7 @@ package app.perdana.indonesia.data.remote.api
 import app.perdana.indonesia.data.remote.model.*
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Query
 
 /**
@@ -23,4 +24,7 @@ interface GeneralApiService {
 
     @GET("/api/v1/user/units")
     suspend fun fetchOpenUnit(@Query("branch") branchId: String): Response<List<Satuan>>
+
+    @GET("/api/v1/user/archery-ranges")
+    suspend fun fetchArcheryRanges(@Header("Authorization") token: String): Response<List<ArcheryRange>>
 }

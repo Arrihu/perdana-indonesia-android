@@ -1,5 +1,6 @@
 package app.perdana.indonesia.data.remote.api
 
+import app.perdana.indonesia.data.remote.model.PresenceContainerRequest
 import app.perdana.indonesia.data.remote.model.PresenceContainerResponse
 import app.perdana.indonesia.data.remote.model.PresenceItem
 import retrofit2.Response
@@ -20,7 +21,6 @@ interface PresenceApiService {
         @Header("Authorization") token: String, @Path("id") id: String, @QueryMap queryMap: HashMap<String, String>
     ): Response<PresenceItem>
 
-    @FormUrlEncoded
     @POST("/api/v1/presences/list/")
-    suspend fun addNewPresenceContainer(@Header("Authorization") token: String, @Field("title") title: String): Response<PresenceContainerResponse>
+    suspend fun addNewPresenceContainer(@Header("Authorization") token: String, @Body presenceContainerRequest: PresenceContainerRequest): Response<PresenceContainerResponse>
 }

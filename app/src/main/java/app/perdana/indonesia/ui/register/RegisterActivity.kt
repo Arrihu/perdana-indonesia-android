@@ -1,6 +1,7 @@
 package app.perdana.indonesia.ui.register
 
 import android.Manifest
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -12,11 +13,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import app.perdana.indonesia.R
+import app.perdana.indonesia.core.extension.compress
 import app.perdana.indonesia.core.extension.getErrorDetail
 import app.perdana.indonesia.core.extension.loadWithGlidePlaceholder
 import app.perdana.indonesia.core.extension.setupActionbar
 import app.perdana.indonesia.core.utils.ProgressDialogHelper
 import app.perdana.indonesia.data.remote.model.*
+import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
@@ -381,7 +384,10 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                         }
                     }.show()
                 }
-                else -> longToast(response.errorBody()?.getErrorDetail().toString())
+                else -> {
+                    Log.e("RESPONSE", Gson().toJson(response.raw().toString()))
+                    longToast(response.errorBody()?.getErrorDetail().toString())
+                }
             }
         } else longToast(getString(R.string.no_internet_connection))
     }
@@ -447,9 +453,16 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    private var progressDialog: ProgressDialog? = null
     private fun showLoading(show: Boolean, msg: String = "Loading") {
-        val progressDialog = ProgressDialogHelper.getInstance(this)
-        progressDialog?.setMessage(msg)
+        if (progressDialog == null) {
+            progressDialog = ProgressDialog(this)
+        }
+        progressDialog?.apply {
+            setTitle("")
+            setMessage(msg)
+            isIndeterminate = true
+        }
         if (show) progressDialog?.show()
         else progressDialog?.dismiss()
     }
@@ -468,9 +481,18 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                     p1: EasyImage.ImageSource?,
                     p2: Int
                 ) {
-                    selectedIdCardFile = p0[0]
+                    selectedIdCardFile = p0[0].compress(this@RegisterActivity)
                     register_card_photo_image.loadWithGlidePlaceholder(selectedIdCardFile)
                 }
             })
+    }
+
+    override fun onBackPressed() {
+        finish()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        showLoading(false)
     }
 }

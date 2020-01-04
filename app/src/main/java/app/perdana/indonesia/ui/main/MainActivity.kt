@@ -10,10 +10,10 @@ import app.perdana.indonesia.core.adapters.ViewPagerAdapter
 import app.perdana.indonesia.core.extension.setupActionbar
 import app.perdana.indonesia.core.utils.Constants
 import app.perdana.indonesia.core.utils.currentUserRole
-import app.perdana.indonesia.ui.fragments.main.MainFragment
-import app.perdana.indonesia.ui.fragments.presence.container.PresenceContainerFragment
-import app.perdana.indonesia.ui.fragments.profile.detail.ProfileDetailFragment
-import app.perdana.indonesia.ui.fragments.scoring.members.ScoringMemberFragment
+import app.perdana.indonesia.ui.screens.main.MainFragment
+import app.perdana.indonesia.ui.screens.presence.container.PresenceContainerFragment
+import app.perdana.indonesia.ui.screens.profile.detail.ProfileDetailFragment
+import app.perdana.indonesia.ui.screens.scoring.members.ScoringMemberFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.main_activity.*
 

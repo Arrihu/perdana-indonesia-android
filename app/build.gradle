@@ -85,8 +85,8 @@ dependencies {
     implementation 'id.zelory:compressor:2.1.0'
     implementation 'me.dm7.barcodescanner:zxing:1.9.13'
 
-    implementation 'com.google.dagger:dagger:2.25.3'
-    kapt 'com.google.dagger:dagger-compiler:2.25.3'
+    implementation 'com.google.dagger:dagger:2.25.4'
+    kapt 'com.google.dagger:dagger-compiler:2.25.4'
 
     implementation "androidx.room:room-runtime:2.2.3"
     kapt "androidx.room:room-compiler:2.2.3"
@@ -102,6 +102,7 @@ dependencies {
     implementation 'com.github.wildma:IDCardCamera:1.1.0'
     implementation 'de.hdodenhof:circleimageview:3.0.1'
     implementation 'com.github.mohammadatif:Animatoo:master'
+    implementation 'com.schibstedspain.android:leku:6.4.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
