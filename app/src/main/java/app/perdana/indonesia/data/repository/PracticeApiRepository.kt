@@ -3,6 +3,7 @@ package app.perdana.indonesia.data.repository
 import app.perdana.indonesia.core.utils.NetworkConfig
 import app.perdana.indonesia.data.remote.api.PracticeApiService
 import app.perdana.indonesia.data.remote.model.PracticeContainer
+import app.perdana.indonesia.data.remote.model.PracticeContainerSeries
 import retrofit2.Response
 
 /**
@@ -28,6 +29,15 @@ class PracticeApiRepository {
     ): Response<MutableList<PracticeContainer>> {
         val service = NetworkConfig.client.create(PracticeApiService::class.java)
         return service.fetchPracticesContainer(token, archerId)
+    }
+
+    suspend fun getPracticesContainer(
+        token: String,
+        containerId: String,
+        archerId: String
+    ): Response<PracticeContainerSeries> {
+        val service = NetworkConfig.client.create(PracticeApiService::class.java)
+        return service.getPracticesContainer(token, containerId, archerId)
     }
 
     suspend fun addNewPracticeContainer(

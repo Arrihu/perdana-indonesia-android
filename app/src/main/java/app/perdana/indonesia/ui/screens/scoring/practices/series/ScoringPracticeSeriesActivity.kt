@@ -1,10 +1,9 @@
-package app.perdana.indonesia.ui.screens.scoring.practices.list
+package app.perdana.indonesia.ui.screens.scoring.practices.series
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,34 +17,34 @@ import app.perdana.indonesia.core.utils.ProgressDialogHelper
 import app.perdana.indonesia.core.utils.formattedToken
 import app.perdana.indonesia.data.remote.model.ArcherMemberResponse
 import app.perdana.indonesia.data.remote.model.PracticeContainer
-import app.perdana.indonesia.ui.screens.scoring.practices.add.ScoringPracticeContainerAddActivity
-import app.perdana.indonesia.ui.screens.scoring.practices.series.ScoringPracticeSeriesActivity
+import app.perdana.indonesia.data.remote.model.PracticeContainerSeries
 import kotlinx.android.synthetic.main.scoring_practice_container_activity.*
+import kotlinx.android.synthetic.main.scoring_practice_series_activity.*
 import org.jetbrains.anko.longToast
 import retrofit2.Response
 
 /**
  * Created by ebysofyan on 12/25/19.
  */
-class ScoringPracticeContainerActivity : AppCompatActivity() {
+class ScoringPracticeSeriesActivity : AppCompatActivity() {
 
-    companion object {
-        const val SCANNER_REQUEST_CODE = 1001
-    }
-
+    private var practiceContainer: PracticeContainer? = null
     private var archerMemberResponse: ArcherMemberResponse? = null
-    private lateinit var viewModel: ScoringPracticeContainerViewModel
+    private lateinit var viewModel: ScoringPracticeSeriesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.scoring_practice_container_activity)
+        setContentView(R.layout.scoring_practice_series_activity)
         initializeUi()
     }
 
     private fun initializeUi() {
-        viewModel = ViewModelProvider(this).get(ScoringPracticeContainerViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ScoringPracticeSeriesViewModel::class.java)
+        practiceContainer =
+            intent.getParcelableExtra(Constants.PRACTICE_CONTAINER_RESPONSE_OBJ) as PracticeContainer
         archerMemberResponse =
             intent.getParcelableExtra(Constants.ARCHER_MEMBER_RESPONSE_OBJ) as ArcherMemberResponse
+
         initActionBar()
         initPresenceItemRecyclerView()
         initActionListener()
@@ -62,8 +61,9 @@ class ScoringPracticeContainerActivity : AppCompatActivity() {
 
     private fun fetchScoringContainer() {
         viewModel.showDotsLoading(true)
-        viewModel.fetchPracticesContainer(
+        viewModel.getPracticesContainer(
             formattedToken.toString(),
+            practiceContainer?.id.toString(),
             archerMemberResponse?.id.toString()
         )
             .observe(this, Observer { response ->
@@ -73,25 +73,17 @@ class ScoringPracticeContainerActivity : AppCompatActivity() {
 
     private val HAS_CHANGE_REQUEST = 100
     private fun initActionListener() {
-        scoring_practice_button_add_new.setOnClickListener {
-            val intent = Intent(this, ScoringPracticeContainerAddActivity::class.java)
-            intent.putExtras(
-                bundleOf(
-                    Constants.ARCHER_MEMBER_RESPONSE_OBJ to archerMemberResponse
-                )
-            )
-            startActivityForResult(intent, HAS_CHANGE_REQUEST)
-        }
+
     }
 
 
-    private fun onPresenceItemResponse(response: Response<MutableList<PracticeContainer>>?) {
+    private fun onPresenceItemResponse(response: Response<PracticeContainerSeries>?) {
         viewModel.showDotsLoading(false)
         if (response != null) {
             when (response.isSuccessful) {
                 true -> response.body()?.let {
                     adapter.clear()
-                    adapter.addItems(it)
+                    adapter.addItems(it.practice_series.toMutableList())
                 }
                 else -> longToast(response.errorBody()?.getErrorDetail().toString())
             }
@@ -99,37 +91,28 @@ class ScoringPracticeContainerActivity : AppCompatActivity() {
     }
 
     private fun initActionBar() {
-        scoring_practice_toolbar.setupActionbar(
+        practice_scoring_series_toolbar.setupActionbar(
             this,
-            archerMemberResponse?.full_name.toString(),
+            "Skoring, ${practiceContainer?.arrow} Arrow ${practiceContainer?.series} Rambahan pada jarak ${practiceContainer?.distance} Meter",
             true
         ) {
             finish()
         }
-        scoring_practice_toolbar.subtitle =
-            archerMemberResponse?.user?.username
     }
 
-    private lateinit var adapter: ScoringPracticeContainerRecyclerViewAdapter
+    private lateinit var adapter: ScoringPracticeSeriesRecyclerViewAdapter
     private fun initPresenceItemRecyclerView() {
         adapter =
-            ScoringPracticeContainerRecyclerViewAdapter { pc ->
-                val intent = Intent(this, ScoringPracticeSeriesActivity::class.java)
-                intent.putExtras(
-                    bundleOf(
-                        Constants.PRACTICE_CONTAINER_RESPONSE_OBJ to pc,
-                        Constants.ARCHER_MEMBER_RESPONSE_OBJ to archerMemberResponse
-                    )
-                )
-                startActivity(intent)
+            ScoringPracticeSeriesRecyclerViewAdapter { _ ->
+
             }
-        scoring_practice_recycler_view.layoutManager = LinearLayoutManager(this)
-        scoring_practice_recycler_view.adapter = adapter
+        practice_scoring_practice_series_recycler_view.layoutManager = LinearLayoutManager(this)
+        practice_scoring_practice_series_recycler_view.adapter = adapter
     }
 
     private fun showDotsLoading(show: Boolean) {
-        if (show) scoring_practice_loading.visible()
-        else scoring_practice_loading.gone()
+        if (show) practice_scoring_practice_series_loading.visible()
+        else practice_scoring_practice_series_loading.gone()
     }
 
     private fun showProgressLoading(show: Boolean, msg: String = "Loading") {

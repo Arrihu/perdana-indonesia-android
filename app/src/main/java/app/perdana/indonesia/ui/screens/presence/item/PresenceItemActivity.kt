@@ -49,6 +49,10 @@ class PresenceItemActivity : AppCompatActivity() {
         initActionListener()
         initPresenceItemRecyclerView()
 
+        if (presenceContainerResponse?.closed == true){
+            presence_item_scan.gone()
+        }
+
         viewModel.dotsLoading.observe(this, Observer { state ->
             showDotsLoading(state)
         })
@@ -142,7 +146,7 @@ class PresenceItemActivity : AppCompatActivity() {
                     obj.let { it?.status = response.body()?.status.toString() }
                     adapter.notifyDataSetChanged()
 
-                    longToast("Status presensi untuk peserta ${response.body()?.member?.full_name} telah diubah")
+                    longToast("Status presensi untuk peserta ${response.body()?.user?.full_name} telah diubah")
                 }
                 else -> longToast(response.errorBody()?.getErrorDetail().toString())
             }

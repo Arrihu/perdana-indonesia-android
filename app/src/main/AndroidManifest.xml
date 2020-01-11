@@ -54,6 +54,7 @@
         <activity android:name=".ui.screens.presence.item.PresenceItemActivity" />
         <activity android:name=".ui.screens.presence.scanner.PresenceScannerActivity" />
         <activity android:name=".ui.screens.scoring.practices.list.ScoringPracticeContainerActivity" />
+        <activity android:name=".ui.screens.scoring.practices.series.ScoringPracticeSeriesActivity" />
         <activity
             android:name=".ui.screens.scoring.practices.add.ScoringPracticeContainerAddActivity"
             android:windowSoftInputMode="stateHidden" />

@@ -1,6 +1,7 @@
 package app.perdana.indonesia.data.remote.api
 
 import app.perdana.indonesia.data.remote.model.PracticeContainer
+import app.perdana.indonesia.data.remote.model.PracticeContainerSeries
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -10,6 +11,18 @@ import retrofit2.http.*
 interface PracticeApiService {
     @GET("/api/v1/practices/list")
     suspend fun fetchPracticesContainer(@Header("Authorization") token: String, @Query("archer_id") archerId: String): Response<MutableList<PracticeContainer>>
+
+    @GET("/api/v1/practices/list/{id}")
+    suspend fun getPracticesContainer(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Query("archer_id") archerId: String
+    ): Response<PracticeContainerSeries>
+
+
+
+
+
 
     @POST("/api/v1/practices/list/")
     suspend fun addNewPracticeContainer(@Header("Authorization") token: String, @Query("archer_id") archerId: String, @Body practicesContainer: PracticeContainer): Response<PracticeContainer>

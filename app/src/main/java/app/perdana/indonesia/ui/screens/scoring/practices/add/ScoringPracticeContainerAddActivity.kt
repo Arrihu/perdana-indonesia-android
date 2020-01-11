@@ -50,11 +50,11 @@ class ScoringPracticeContainerAddActivity : AppCompatActivity() {
                     selectedTargetType = targetTypes[position].toString()
                 }
                 R.id.scoring_practice_add_spinner_archery_range -> {
-                    if (position == archeryRanges.size - 1) {
+                    selectedArcheryRange = archeryRanges[position]
+                    if (selectedArcheryRange?.id == 0) {
                         scoring_practice_add_custom_name_input_layout.visible()
                     } else {
                         scoring_practice_add_custom_name_input_layout.gone()
-                        selectedArcheryRange = archeryRanges[position]
                     }
                 }
             }
@@ -113,9 +113,11 @@ class ScoringPracticeContainerAddActivity : AppCompatActivity() {
             return
         }
 
-        if (selectedArcheryRange == null){
-            longToast("Pilih lokasi latihan terlebih dahulu")
-            return
+        if (selectedArcheryRange?.id == 0){
+            if (scoring_practice_add_custom_name_input_layout.editText?.text.toString().isEmpty()){
+                scoring_practice_add_custom_name_input_layout.editText?.error = "Tentukan nama lokasi latihan"
+                return
+            }
         }
 
         val practiceContainer = PracticeContainer(
@@ -124,9 +126,11 @@ class ScoringPracticeContainerAddActivity : AppCompatActivity() {
             series = scoring_practice_add_series_input_layout.editText?.text.toString(),
             arrow = scoring_practice_add_arrow_input_layout.editText?.text.toString(),
             note = scoring_practice_add_notes_input_layout.editText?.text.toString(),
-            target_type = selectedTargetType,
-            archery_range = selectedArcheryRange?.id
+            target_type = selectedTargetType
         )
+        if(selectedArcheryRange?.id != 0){
+            practiceContainer.archery_range = selectedArcheryRange?.id
+        }
 
         viewModel.showLoading(true to "Membuat form skoring . . .")
         viewModel.addNewPracticesContainer(formattedToken, archerMemberResponse?.id.toString(), practiceContainer).observe(this, Observer {response ->

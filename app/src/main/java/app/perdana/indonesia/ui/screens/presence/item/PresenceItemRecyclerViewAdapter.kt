@@ -16,9 +16,9 @@ class PresenceItemRecyclerViewAdapter(private val onItemClickListener: (Presence
     override fun getLayoutResourceId(): Int = R.layout.presence_item_item_view
 
     override fun onBindItem(view: View, data: PresenceItem, position: Int) {
-        view.presence_item_image_profile.loadWithGlidePlaceholder(BuildConfig.BASE_URL + data.member.public_photo)
-        view.presence_item_item_title.text = data.member.full_name
-        view.presence_item_item_subtitle.text = data.member.member_id
+        view.presence_item_image_profile.loadWithGlidePlaceholder(BuildConfig.BASE_URL + data.user.public_photo ?: "")
+        view.presence_item_item_title.text = data.user.full_name
+        view.presence_item_item_subtitle.text = data.user.member_id
 
         when (data.status) {
             "0" -> view.presence_item_item_image_status.setImageResource(R.drawable.ic_close_red)

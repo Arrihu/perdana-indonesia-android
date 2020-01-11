@@ -31,7 +31,7 @@ data class PresenceItem(
     val container: Int,
     val created: String,
     val id: Int,
-    val member: PresenceItemMember,
+    val user: PresenceItemMember,
     val modified: String,
     val note: String? = null,
     var status: String,

@@ -2,6 +2,7 @@ package app.perdana.indonesia.ui.screens.scoring.practices.list
 
 import android.annotation.SuppressLint
 import android.view.View
+import androidx.core.content.ContextCompat
 import app.perdana.indonesia.R
 import app.perdana.indonesia.core.adapters.BaseRecyclerViewAdapter
 import app.perdana.indonesia.core.extension.fullDateTimeFormat
@@ -19,8 +20,16 @@ class ScoringPracticeContainerRecyclerViewAdapter(private val onItemClickListene
     @SuppressLint("SetTextI18n")
     override fun onBindItem(view: View, data: PracticeContainer, position: Int) {
         view.presence_item_image_profile.gone()
-        view.presence_item_item_title.text = "Skoring Pada ${data.created?.fullDateTimeFormat()}"
-        view.presence_item_item_subtitle.text = "${data.arrow} Arrow ${data.series} Rambahan pada jarak ${data.distance} Meter"
+        view.presence_item_item_title.text = "Skoring, ${data.arrow} Arrow ${data.series} Rambahan pada jarak ${data.distance} Meter"
+        view.presence_item_item_subtitle.apply {
+            text = if (data.completed){
+                setTextColor(ContextCompat.getColor(view.context, R.color.color_red))
+                "Skoring telah selesai"
+            }else{
+                setTextColor(ContextCompat.getColor(view.context, R.color.color_green))
+                "Skoring sedang berjalan"
+            }
+        }
         view.presence_item_item_image_status.setImageResource(R.drawable.ic_chevron_right)
 
         view.presence_item_item_container.setOnClickListener {

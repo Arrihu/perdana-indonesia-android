@@ -64,4 +64,6 @@
     <string name="notes_hint">Informasi Tambahan</string>
     <string name="archery_range_hint">Lokasi Latihan</string>
     <string name="custom_address_hint">Nama Lokasi Latihan</string>
+    <string name="initial_series">RAMBAHAN 1</string>
+    <string name="send">Kirim</string>
 </resources>

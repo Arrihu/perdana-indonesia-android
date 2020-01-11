@@ -4,6 +4,7 @@ import app.perdana.indonesia.BuildConfig
 
 
 object Constants {
+    const val PRACTICE_CONTAINER_RESPONSE_OBJ = "PRACTICE_CONTAINER_RESPONSE_OBJ"
     const val HAS_CHANGE = "HAS_CHANGE"
     const val ARCHER_MEMBER_RESPONSE_OBJ = "ARCHER_MEMBER_RESPONSE_OBJ"
     const val SCANNER_RESULT = "SCANNER_RESULT"
