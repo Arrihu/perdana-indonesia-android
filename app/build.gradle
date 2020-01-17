@@ -8,8 +8,7 @@ android {
 
     defaultConfig {
         applicationId "app.perdana.indonesia"
-        minSdkVersion 17
-        targetSdkVersion 29
+        minSdkVersion 21
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -70,16 +69,16 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$arch_version"
     implementation "androidx.navigation:navigation-ui-ktx:$arch_version"
 
-    implementation 'com.squareup.retrofit2:retrofit:2.7.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.7.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.7.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
     implementation 'com.google.code.gson:gson:2.8.6'
 
     implementation 'androidx.multidex:multidex:2.0.1'
 
     implementation "org.jetbrains.anko:anko-commons:0.10.8"
 
-    implementation 'com.github.bumptech.glide:glide:4.10.0'
-    kapt 'com.github.bumptech.glide:compiler:4.10.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.karumi:dexter:6.0.1'
     implementation 'com.github.jkwiecien:EasyImage:2.1.0'
     implementation 'id.zelory:compressor:2.1.0'
@@ -104,7 +103,9 @@ dependencies {
     implementation 'com.github.mohammadatif:Animatoo:master'
     implementation 'com.schibstedspain.android:leku:6.4.0'
 
-    testImplementation 'junit:junit:4.12'
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

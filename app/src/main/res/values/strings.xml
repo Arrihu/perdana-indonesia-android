@@ -66,4 +66,7 @@
     <string name="custom_address_hint">Nama Lokasi Latihan</string>
     <string name="initial_series">RAMBAHAN 1</string>
     <string name="send">Kirim</string>
+    <string name="photo_scan_skck">Photo / Scan SKCK</string>
+    <string name="accept">Terima</string>
+    <string name="reject">Tolak</string>
 </resources>

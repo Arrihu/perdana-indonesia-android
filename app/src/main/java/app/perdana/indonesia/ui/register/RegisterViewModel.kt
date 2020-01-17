@@ -73,7 +73,7 @@ class RegisterViewModel : ViewModel() {
         }
     }
 
-    fun register(memberRequest: MemberRequest, photos: MutableList<File?>) = liveData(job) {
+    fun register(memberRequest: MemberRequest, photos: MutableList<Pair<String, File?>>) = liveData(job) {
         try {
             userRepository?.register(memberRequest, photos).also { emit(it) }
         } catch (e: HttpException) {

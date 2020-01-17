@@ -60,6 +60,7 @@ data class ArcherMemberResponse(
     val id: String? = null,
     val identity_card_number: String? = null,
     val identity_card_photo: String? = null,
+    val skck: String? = null,
     val modified: String? = null,
     val phone: String? = null,
     val photo: String? = null,

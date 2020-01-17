@@ -1,6 +1,8 @@
 package app.perdana.indonesia.core.base
 
+import app.perdana.indonesia.core.extension.getErrorDetail
 import com.google.gson.annotations.SerializedName
+import retrofit2.Response
 
 /**
  * Created by ebysofyan on 12/3/19.
@@ -23,4 +25,17 @@ data class BasePaginatedResponse<T>(
 
 data class PerdanaError(
     val detail: String
+)
+
+data class ApiResponseError(
+    val response: Response<*>?
+) {
+    val statusCode: Int? get() = response?.code()
+    val detail: String get() = response?.errorBody()?.getErrorDetail().toString()
+}
+
+class ApiResponseModel<T>(
+    val data: T? = null,
+    val error: ApiResponseError? = null,
+    val exception: Exception? = null
 )

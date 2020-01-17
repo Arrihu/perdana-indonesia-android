@@ -2,6 +2,7 @@ package app.perdana.indonesia.core.extension
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageView
 import app.perdana.indonesia.R
@@ -71,6 +72,22 @@ fun ImageView.loadWithGlidePlaceholder(
     Glide.with(this.context)
         .applyDefaultRequestOptions(glideOption)
         .load(resourceId)
+        .into(this)
+}
+
+fun ImageView.loadWithGlidePlaceholder(
+    imageDrawable: Drawable,
+    placeHolderImage: Int = R.drawable.no_image,
+    roundedCorner: Int = 1
+) {
+    val glideOption = RequestOptions()
+        .placeholder(placeHolderImage)
+        .error(placeHolderImage)
+        .transform(RoundedCorners(roundedCorner))
+
+    Glide.with(this.context)
+        .applyDefaultRequestOptions(glideOption)
+        .load(imageDrawable)
         .into(this)
 }
 

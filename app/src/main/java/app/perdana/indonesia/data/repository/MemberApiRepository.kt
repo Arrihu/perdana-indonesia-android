@@ -32,4 +32,14 @@ class MemberApiRepository {
         val service = NetworkConfig.client.create(MemberApiService::class.java)
         return service.fetchMembers(token)
     }
+
+    suspend fun fetchMemberApplicants(token: String): Response<List<ArcherMemberResponse>> {
+        val service = NetworkConfig.client.create(MemberApiService::class.java)
+        return service.fetchMemberApplicants(token)
+    }
+
+    suspend fun getMemberApplicant(token: String, id: String): Response<ArcherMemberResponse> {
+        val service = NetworkConfig.client.create(MemberApiService::class.java)
+        return service.getMemberApplicant(token, id)
+    }
 }

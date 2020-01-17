@@ -64,6 +64,12 @@
         <activity
             android:name=".ui.screens.profile.edit.club_unit.ClubUnitProfileEditActivity"
             android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.applicant.list.ApplicantActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.applicant.detail.ApplicantDetailActivity"
+            android:windowSoftInputMode="stateHidden" />
 
 
         <activity

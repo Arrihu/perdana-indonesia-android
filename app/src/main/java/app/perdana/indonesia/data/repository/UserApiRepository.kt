@@ -37,7 +37,7 @@ class UserApiRepository {
 
     suspend fun register(
         memberRequest: MemberRequest,
-        photos: MutableList<File?>
+        photos: MutableList<Pair<String, File?>>
     ): Response<JsonElement> {
         val service = NetworkConfig.client.create(UserApiService::class.java)
         val textRequestBody = HashMap<String, RequestBody>()
@@ -59,12 +59,12 @@ class UserApiRepository {
         else textRequestBody.addMapRequestBody("satuan", memberRequest.satuan.toString())
 
         val imagesBody = mutableListOf<MultipartBody.Part>()
-        photos.forEach { file ->
+        photos.forEach { pairedFile ->
             val imageRequestBody =
                 MultipartBody.Part.createFormData(
-                    "identity_card_photo",
-                    file?.name,
-                    file?.addToRequestBody()!!
+                    pairedFile.first,
+                    pairedFile.second?.name,
+                    pairedFile.second?.addToRequestBody()!!
                 )
             imagesBody.add(imageRequestBody)
         }

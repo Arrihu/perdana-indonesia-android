@@ -17,7 +17,6 @@ import app.perdana.indonesia.core.extension.compress
 import app.perdana.indonesia.core.extension.getErrorDetail
 import app.perdana.indonesia.core.extension.loadWithGlidePlaceholder
 import app.perdana.indonesia.core.extension.setupActionbar
-import app.perdana.indonesia.core.utils.ProgressDialogHelper
 import app.perdana.indonesia.data.remote.model.*
 import com.google.gson.Gson
 import com.google.gson.JsonElement
@@ -44,9 +43,10 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
     companion object {
         const val ID_CARD_PHOTO_REQUEST_CODE = 101
+        const val SKCK_PHOTO_REQUEST_CODE = 102
     }
 
-    private var selectedIdCardFile: File? = null
+    private val photos = mutableListOf<Pair<String, File?>>()
     private lateinit var viewModel: RegisterViewModel
 
     private val regionals = mutableListOf<Regional>()
@@ -268,6 +268,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     private fun initActionListener() {
         primary_button_dark.setOnClickListener(this)
         register_card_photo_image_camera.setOnClickListener(this)
+        register_card_photo_image_camera_skck.setOnClickListener(this)
         register_club_input_layout.setOnClickListener(this)
 
         register_radio_group_org.setOnCheckedChangeListener { group, checkedId ->
@@ -337,8 +338,8 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
             return false
         }
 
-        if (selectedIdCardFile == null) {
-            longToast("Lengkapi photo / scan KTP anda")
+        if (photos.size < 2) {
+            longToast("Lengkapi scan KTP dan atau SKCK anda")
             return false
         }
 
@@ -361,7 +362,6 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                 identity_card_number = register_id_card_input_layout.editText?.text.toString()
             )
 
-            val photos = mutableListOf(selectedIdCardFile)
             viewModel.showLoading(true to "Sedang mengirim data ke server, silahkan menunggu . . .")
             viewModel.register(member, photos).observe(this, Observer { response ->
                 onRegisterResponse(response)
@@ -394,27 +394,32 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun clearForm() {
         resetClubUnit()
-        selectedIdCardFile = null
+        photos.clear()
         register_card_photo_image.setImageResource(0)
+        register_card_photo_image_skck.setImageResource(0)
         register_username_input_layout.editText?.text?.clear()
         register_password_input_layout.editText?.text?.clear()
         register_full_name_input_layout.editText?.text?.clear()
         register_address_input_layout.editText?.text?.clear()
-        register_id_card_input_layout.editText?.text?.clear()
+        register_phone_input_layout.editText?.text?.clear()
         register_id_card_input_layout.editText?.text?.clear()
     }
 
     override fun onClick(v: View?) {
-        when {
-            v === primary_button_dark -> {
+        when (v) {
+            primary_button_dark -> {
                 submit()
             }
 
-            v === register_card_photo_image_camera -> {
+            register_card_photo_image_camera -> {
                 EasyImage.openChooserWithGallery(this, "Pilih Photo", ID_CARD_PHOTO_REQUEST_CODE)
             }
 
-            v === register_club_input_layout -> {
+            register_card_photo_image_camera_skck -> {
+                EasyImage.openChooserWithGallery(this, "Pilih Photo", SKCK_PHOTO_REQUEST_CODE)
+            }
+
+            register_club_input_layout -> {
                 showClubSatuanDialog()
             }
         }
@@ -481,8 +486,25 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                     p1: EasyImage.ImageSource?,
                     p2: Int
                 ) {
-                    selectedIdCardFile = p0[0].compress(this@RegisterActivity)
-                    register_card_photo_image.loadWithGlidePlaceholder(selectedIdCardFile)
+                    when (p2) {
+                        ID_CARD_PHOTO_REQUEST_CODE -> {
+                            val idCardPairedPhoto =
+                                "identity_card_photo" to p0[0].compress(this@RegisterActivity)
+                            register_card_photo_image.loadWithGlidePlaceholder(idCardPairedPhoto.second)
+
+                            photos.firstOrNull { it.first == idCardPairedPhoto.first }
+                                .also { photos.remove(it) }
+                            photos.add(idCardPairedPhoto)
+                        }
+                        SKCK_PHOTO_REQUEST_CODE -> {
+                            val skckPairedPhoto = "skck" to p0[0].compress(this@RegisterActivity)
+                            register_card_photo_image_skck.loadWithGlidePlaceholder(skckPairedPhoto.second)
+
+                            photos.firstOrNull { it.first == skckPairedPhoto.first }
+                                .also { photos.remove(it) }
+                            photos.add(skckPairedPhoto)
+                        }
+                    }
                 }
             })
     }

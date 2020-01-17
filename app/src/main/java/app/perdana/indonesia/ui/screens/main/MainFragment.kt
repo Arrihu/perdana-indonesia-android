@@ -1,5 +1,6 @@
 package app.perdana.indonesia.ui.screens.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.perdana.indonesia.R
+import app.perdana.indonesia.core.extension.toClass
 import app.perdana.indonesia.core.extension.visible
 import app.perdana.indonesia.core.ui.ItemOffsetDecoration
 import app.perdana.indonesia.core.utils.Constants
@@ -16,13 +18,19 @@ import app.perdana.indonesia.core.utils.currentUserRole
 import app.perdana.indonesia.data.remote.model.Menu
 import app.perdana.indonesia.data.remote.model.TopScoring
 import kotlinx.android.synthetic.main.main_fragment.*
+import org.jetbrains.anko.longToast
 
 class MainFragment : Fragment() {
 
     companion object {
         fun newInstance() = MainFragment()
         private val mainMenus = mutableListOf(
-            Menu("Pendaftar", R.drawable.ic_account_circle_outline_white_48dp, "9+", ""),
+            Menu(
+                "Pendaftar",
+                R.drawable.ic_account_circle_outline_white_48dp,
+                "",
+                ".ui.applicant.list.ApplicantActivity"
+            ),
             Menu("Archery Range", R.drawable.ic_map_marker_radius_white_48dp, "", ""),
             Menu("Organisasi", R.drawable.ic_account_group_outline_white_48dp, "", ""),
             Menu("Pengaturan", R.drawable.ic_settings_outline_white_48dp, "", "")
@@ -79,7 +87,13 @@ class MainFragment : Fragment() {
     private fun initializeMainMenuRecyclerView() {
         main_fragment_menu_recycler_view.visible()
 
-        mainMenuAdapter = MainMenuRecyclerViewAdapter()
+        mainMenuAdapter = MainMenuRecyclerViewAdapter() {
+            try {
+                startActivity(Intent(context, module.toClass(context)))
+            } catch (e: ClassNotFoundException) {
+                context?.longToast("Module Not Implemented Yet. . .")
+            }
+        }
         main_fragment_menu_recycler_view.layoutManager = GridLayoutManager(context, 4)
         main_fragment_menu_recycler_view.addItemDecoration(
             ItemOffsetDecoration(
@@ -88,7 +102,6 @@ class MainFragment : Fragment() {
             )
         )
         main_fragment_menu_recycler_view.adapter = mainMenuAdapter
-
         mainMenuAdapter.addItems(mainMenus)
     }
 }
