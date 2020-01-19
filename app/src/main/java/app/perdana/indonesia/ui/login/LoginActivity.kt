@@ -105,6 +105,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private fun onResponseSuccess(body: LoginResponse?) {
         LocalStorage.put(this, Constants.TOKEN, body?.token.toString())
         LocalStorage.put(this, Constants.USER_ROLE, body?.role.toString())
+        LocalStorage.put(this, Constants.USER_ID, body?.member?.id.toString())
         LocalStorage.put(this, Constants.USER_PROFILE, Gson().toJson(body?.member))
 
         startActivity(Intent(this, MainActivity::class.java))

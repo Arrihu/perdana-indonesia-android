@@ -1,7 +1,13 @@
 package app.perdana.indonesia.ui.applicant.detail
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -15,10 +21,13 @@ import app.perdana.indonesia.core.extension.visible
 import app.perdana.indonesia.core.utils.Constants
 import app.perdana.indonesia.core.utils.formattedToken
 import app.perdana.indonesia.data.remote.model.ArcherMemberResponse
+import app.perdana.indonesia.ui.photo.view.PhotoViewActivity
 import com.amulyakhare.textdrawable.TextDrawable
 import kotlinx.android.synthetic.main.applicant_detail_activity.*
-import kotlinx.android.synthetic.main.profile_item_view.*
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.longToast
+import org.jetbrains.anko.okButton
+import org.jetbrains.anko.startActivity
 
 class ApplicantDetailActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -36,9 +45,14 @@ class ApplicantDetailActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initializeUi() {
         initActionBar()
+        initActionListener()
 
         viewModel.getLoading().observe(this, Observer {
             showLoading(it)
+        })
+
+        viewModel.getProgressLoading().observe(this, Observer { state ->
+            showLoading(state.first, state.second)
         })
 
         viewModel.setLoading(true)
@@ -46,6 +60,15 @@ class ApplicantDetailActivity : AppCompatActivity(), View.OnClickListener {
             .observe(this, Observer { response ->
                 onResponseHandler(response)
             })
+    }
+
+
+    private fun initActionListener() {
+        applicant_detail_button_accept.setOnClickListener {
+            BottomSheetDialogFragmentAccept.newInstance().also {
+                it.show(supportFragmentManager, ApplicantDetailActivity::class.java.simpleName)
+            }
+        }
     }
 
     private fun onResponseHandler(response: ApiResponseModel<ArcherMemberResponse>?) {
@@ -76,6 +99,7 @@ class ApplicantDetailActivity : AppCompatActivity(), View.OnClickListener {
         else applicant_detail_loading.gone()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setArcherMemberView(archerMemberResponse: ArcherMemberResponse) {
         applicant_detail_text_name.text = archerMemberResponse.full_name ?: "-"
 
@@ -107,17 +131,33 @@ class ApplicantDetailActivity : AppCompatActivity(), View.OnClickListener {
             "Panjang Tarikan" to (archerMemberResponse.draw_length ?: "-")
         )
 
+        val personalInfoContainer =
+            findViewById<LinearLayout>(R.id.applicant_detail_personal_info_container)
         archerMemberPersonalInfo.forEach { perInfo ->
             val inflatedView = layoutInflater.inflate(
                 R.layout.profile_item_view,
-                applicant_detail_personal_info_container,
+                personalInfoContainer,
                 false
             )
-            inflatedView.apply {
-                key_value_detail_item_title.text = perInfo.first
-                key_value_detail_item_value.text = perInfo.second
+
+            inflatedView.findViewById<TextView>(R.id.key_value_detail_item_title).also {
+                it.text = perInfo.first
             }
-            applicant_detail_personal_info_container.addView(inflatedView)
+            val value = inflatedView.findViewById<TextView>(R.id.key_value_detail_item_value).also {
+                if (perInfo.second.endsWith(".jpg") ||
+                    perInfo.second.endsWith(".png") ||
+                    perInfo.second.endsWith(".JPEG")
+                ) {
+                    it.text = "Tekan untuk lihat photo"
+                    inflatedView.setOnClickListener {
+                        startActivity<PhotoViewActivity>(Constants.IMAGE_URL to perInfo.second)
+                    }
+                } else {
+                    it.text = perInfo.second
+                }
+            }
+
+            personalInfoContainer.addView(inflatedView)
         }
 
         archerMemberPhysicInfo.forEach { phyInfo ->
@@ -126,11 +166,61 @@ class ApplicantDetailActivity : AppCompatActivity(), View.OnClickListener {
                 applicant_detail_physic_info_item_container,
                 false
             )
-            inflatedView.apply {
-                key_value_detail_item_title.text = phyInfo.first
-                key_value_detail_item_value.text = phyInfo.second
+            inflatedView.findViewById<TextView>(R.id.key_value_detail_item_title).also {
+                it.text = phyInfo.first
+            }
+            val value = inflatedView.findViewById<TextView>(R.id.key_value_detail_item_value).also {
+                it.text = phyInfo.second
             }
             applicant_detail_physic_info_item_container.addView(inflatedView)
         }
+    }
+
+    fun onSubmitRegisterNumber(string: String) {
+        if (string.isNotEmpty()) {
+            viewModel.showProgressLoading(true to "Mengubah status peserta. Silahkan tunggu beberapa saat . . .")
+            viewModel.approveApplicantMember(
+                formattedToken,
+                archerMemberResponse?.id.toString(),
+                string
+            ).observe(this, Observer { response ->
+                approveApplicantResponseHandler(response)
+            })
+        }
+    }
+
+    private fun approveApplicantResponseHandler(response: ApiResponseModel<ArcherMemberResponse>?) {
+        viewModel.hideProgressLoading()
+        when {
+            response?.data != null -> {
+                alert {
+                    title =
+                        "Penerimaan anggota berhasil. Status peserta telah diubah menjadi anggota."
+                    okButton {
+                        it.dismiss()
+
+                        val intent = Intent()
+                        setResult(Activity.RESULT_OK, intent)
+                        finish()
+                    }
+                }.show()
+            }
+            response?.error != null -> longToast(response.error.detail)
+            response?.exception != null -> longToast(response.exception.message.toString())
+        }
+    }
+
+    private var progressDialog: ProgressDialog? = null
+    private fun showLoading(show: Boolean, msg: String = "Loading") {
+        if (progressDialog == null) {
+            progressDialog = ProgressDialog(this)
+        }
+        progressDialog?.apply {
+            setTitle("")
+            setMessage(msg)
+            isIndeterminate = true
+        }
+        if (show) progressDialog?.show()
+        else progressDialog?.dismiss()
     }
 }

@@ -38,7 +38,7 @@ class ScoringMemberFragment : Fragment() {
         fun newInstance(): ScoringMemberFragment = ScoringMemberFragment()
     }
 
-    private lateinit var fragmentActivity : AppCompatActivity
+    private lateinit var fragmentActivity: AppCompatActivity
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,6 +69,10 @@ class ScoringMemberFragment : Fragment() {
             showProgressLoading(state.first, state.second)
         })
 
+        fetchMembers()
+    }
+
+    private fun fetchMembers() {
         viewModel.showDotsLoading(true)
         viewModel.fetchMembers(context?.formattedToken.toString())
             .observe(this.viewLifecycleOwner, Observer { response ->
@@ -113,9 +117,15 @@ class ScoringMemberFragment : Fragment() {
             }
 
         })
+
+        scoring_member_swipe_layout.setOnRefreshListener {
+            fetchMembers()
+        }
     }
 
     private fun onPresenceItemResponse(response: Response<List<ArcherMemberResponse>>?) {
+        scoring_member_swipe_layout?.isRefreshing = false
+
         viewModel.showDotsLoading(false)
         if (response != null) {
             when (response.isSuccessful) {
@@ -133,7 +143,7 @@ class ScoringMemberFragment : Fragment() {
     private fun initPresenceItemRecyclerView() {
         adapter =
             ScoringMemberRecyclerViewAdapter { pi ->
-                val bundle = bundleOf(Constants.ARCHER_MEMBER_RESPONSE_OBJ to pi)
+                val bundle = bundleOf(Constants.ARCHER_MEMBER_ID to pi.id)
                 val intent = Intent(context, ScoringPracticeContainerActivity::class.java).apply {
                     putExtras(bundle)
                 }

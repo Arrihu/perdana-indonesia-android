@@ -15,10 +15,8 @@ import app.perdana.indonesia.core.extension.visible
 import app.perdana.indonesia.core.utils.Constants
 import app.perdana.indonesia.core.utils.ProgressDialogHelper
 import app.perdana.indonesia.core.utils.formattedToken
-import app.perdana.indonesia.data.remote.model.ArcherMemberResponse
 import app.perdana.indonesia.data.remote.model.PracticeContainer
 import app.perdana.indonesia.data.remote.model.PracticeContainerSeries
-import kotlinx.android.synthetic.main.scoring_practice_container_activity.*
 import kotlinx.android.synthetic.main.scoring_practice_series_activity.*
 import org.jetbrains.anko.longToast
 import retrofit2.Response
@@ -29,7 +27,7 @@ import retrofit2.Response
 class ScoringPracticeSeriesActivity : AppCompatActivity() {
 
     private var practiceContainer: PracticeContainer? = null
-    private var archerMemberResponse: ArcherMemberResponse? = null
+    private var archerMemberId: String? = null
     private lateinit var viewModel: ScoringPracticeSeriesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,8 +40,7 @@ class ScoringPracticeSeriesActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(ScoringPracticeSeriesViewModel::class.java)
         practiceContainer =
             intent.getParcelableExtra(Constants.PRACTICE_CONTAINER_RESPONSE_OBJ) as PracticeContainer
-        archerMemberResponse =
-            intent.getParcelableExtra(Constants.ARCHER_MEMBER_RESPONSE_OBJ) as ArcherMemberResponse
+        archerMemberId = intent.getStringExtra(Constants.ARCHER_MEMBER_ID)
 
         initActionBar()
         initPresenceItemRecyclerView()
@@ -64,7 +61,7 @@ class ScoringPracticeSeriesActivity : AppCompatActivity() {
         viewModel.getPracticesContainer(
             formattedToken.toString(),
             practiceContainer?.id.toString(),
-            archerMemberResponse?.id.toString()
+            archerMemberId.toString()
         )
             .observe(this, Observer { response ->
                 onPresenceItemResponse(response)

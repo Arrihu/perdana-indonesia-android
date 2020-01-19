@@ -3,9 +3,7 @@ package app.perdana.indonesia.data.remote.api
 import app.perdana.indonesia.data.remote.model.ArcherMemberResponse
 import com.google.gson.JsonElement
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Path
+import retrofit2.http.*
 
 /**
  * Created by ebysofyan on 12/2/19.
@@ -22,4 +20,12 @@ interface MemberApiService {
 
     @GET("/api/v1/user/applicants/{id}")
     suspend fun getMemberApplicant(@Header("Authorization") token: String, @Path("id") id: String): Response<ArcherMemberResponse>
+
+    @FormUrlEncoded
+    @POST("/api/v1/user/applicants/{id}/approve/")
+    suspend fun approveApplicantMember(
+        @Header("Authorization") token: String, @Path("id") id: String, @Field(
+            "register_number"
+        ) registerNumber: String
+    ): Response<ArcherMemberResponse>
 }

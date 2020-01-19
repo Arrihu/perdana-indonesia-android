@@ -1,10 +1,9 @@
-package app.perdana.indonesia.ui.applicant.list
+package app.perdana.indonesia.ui.member.list
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,11 +13,9 @@ import app.perdana.indonesia.core.extension.fullDateFormat
 import app.perdana.indonesia.core.extension.gone
 import app.perdana.indonesia.core.extension.setupActionbar
 import app.perdana.indonesia.core.extension.visible
-import app.perdana.indonesia.core.utils.Constants
 import app.perdana.indonesia.core.utils.ProgressDialogHelper
 import app.perdana.indonesia.core.utils.formattedToken
 import app.perdana.indonesia.data.remote.model.ArcherMemberResponse
-import app.perdana.indonesia.ui.applicant.detail.ApplicantDetailActivity
 import kotlinx.android.synthetic.main.applicant_activity.*
 import org.jetbrains.anko.longToast
 import java.util.*
@@ -26,13 +23,13 @@ import java.util.*
 /**
  * Created by ebysofyan on 12/25/19.
  */
-class ApplicantActivity : AppCompatActivity() {
+class MemberListActivity : AppCompatActivity() {
 
     companion object {
         const val APPROVE_MEMBER_REQUEST_CODE = 1011
     }
 
-    private lateinit var viewModel: ApplicantViewModel
+    private lateinit var viewModel: MemberListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,10 +38,10 @@ class ApplicantActivity : AppCompatActivity() {
     }
 
     private fun initializeUi() {
-        viewModel = ViewModelProvider(this).get(ApplicantViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MemberListViewModel::class.java)
         initActionBar()
         initActionListener()
-        initApplicantRecyclerView()
+        initMemberListRecyclerView()
 
         viewModel.dotsLoading.observe(this, Observer { state ->
             showDotsLoading(state)
@@ -53,12 +50,12 @@ class ApplicantActivity : AppCompatActivity() {
             showProgressLoading(state.first, state.second)
         })
 
-        fetchApplicants()
+        fetchMemberLists()
     }
 
-    private fun fetchApplicants() {
+    private fun fetchMemberLists() {
         viewModel.showDotsLoading(true)
-        viewModel.fetchMemberApplicants(formattedToken.toString())
+        viewModel.fetchMembers(formattedToken.toString())
             .observe(this, Observer { response ->
                 onResponseHandler(response)
             })
@@ -72,29 +69,16 @@ class ApplicantActivity : AppCompatActivity() {
             response?.data != null -> response.data.let {
                 adapter.clear()
                 adapter.addItems(it.toMutableList())
-
-                if (adapter.itemCount > 0) onDataIsNotEmpty()
-                else onDataIsEmpty()
             }
             response?.error != null -> longToast(response.error.detail)
             response?.exception != null -> longToast(response.exception.message.toString())
         }
     }
 
-    private fun onDataIsEmpty() {
-        applicant_blank_page.visible()
-        applicant_recycler_view.gone()
-    }
-
-    private fun onDataIsNotEmpty() {
-        applicant_blank_page.gone()
-        applicant_recycler_view.visible()
-    }
-
 
     private fun initActionListener() {
         applicant_swipe_layout.setOnRefreshListener {
-            fetchApplicants()
+            fetchMemberLists()
         }
     }
 
@@ -102,7 +86,7 @@ class ApplicantActivity : AppCompatActivity() {
     private fun initActionBar() {
         applicant_toolbar.setupActionbar(
             this,
-            "Pendaftaran Anggota",
+            "Semua Anggota Klub",
             true
         ) {
             finish()
@@ -110,13 +94,13 @@ class ApplicantActivity : AppCompatActivity() {
         applicant_toolbar.subtitle = Date().fullDateFormat()
     }
 
-    private lateinit var adapter: ApplicantRecyclerViewAdapter
-    private fun initApplicantRecyclerView() {
+    private lateinit var adapter: MemberListRecyclerViewAdapter
+    private fun initMemberListRecyclerView() {
         adapter =
-            ApplicantRecyclerViewAdapter { archerMemberResponse ->
-                val intent = Intent(this, ApplicantDetailActivity::class.java)
-                intent.putExtras(bundleOf(Constants.ARCHER_MEMBER_RESPONSE_OBJ to archerMemberResponse))
-                startActivityForResult(intent, APPROVE_MEMBER_REQUEST_CODE)
+            MemberListRecyclerViewAdapter { archerMemberResponse ->
+                //                val intent = Intent(this, MemberListDetailActivity::class.java)
+//                intent.putExtras(bundleOf(Constants.ARCHER_MEMBER_RESPONSE_OBJ to archerMemberResponse))
+//                startActivityForResult(intent, APPROVE_MEMBER_REQUEST_CODE)
             }
         applicant_recycler_view.layoutManager = LinearLayoutManager(this)
         applicant_recycler_view.adapter = adapter
@@ -137,7 +121,7 @@ class ApplicantActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == APPROVE_MEMBER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            fetchApplicants()
+            fetchMemberLists()
         }
     }
 }

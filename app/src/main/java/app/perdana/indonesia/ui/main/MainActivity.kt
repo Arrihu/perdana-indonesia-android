@@ -14,6 +14,7 @@ import app.perdana.indonesia.ui.screens.main.MainFragment
 import app.perdana.indonesia.ui.screens.presence.container.PresenceContainerFragment
 import app.perdana.indonesia.ui.screens.profile.detail.ProfileDetailFragment
 import app.perdana.indonesia.ui.screens.scoring.members.ScoringMemberFragment
+import app.perdana.indonesia.ui.screens.scoring.self.SelfScoringPracticeContainerFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.main_activity.*
 
@@ -99,12 +100,14 @@ class MainActivity : AppCompatActivity() {
         adapter.fragments.add(MainFragment.newInstance() to getString(R.string.navigation_home_title))
         if (currentUserRole == Constants.UserRole.CLUB_SATUAN_MANAGER) {
             adapter.fragments.add(PresenceContainerFragment.newInstance() to getString(R.string.navigation_presence_title))
+            adapter.fragments.add(ScoringMemberFragment.newInstance() to getString(R.string.navigation_scoring_title))
+        } else {
+            adapter.fragments.add(SelfScoringPracticeContainerFragment.newInstance() to getString(R.string.navigation_scoring_title))
         }
-        adapter.fragments.add(ScoringMemberFragment.newInstance() to getString(R.string.navigation_scoring_title))
         adapter.fragments.add(ProfileDetailFragment.newInstance() to getString(R.string.navigation_profile_title))
 
         main_view_pager.addOnPageChangeListener(onPageChangeListener)
-        main_view_pager.offscreenPageLimit = 4
+        main_view_pager.offscreenPageLimit = adapter.fragments.size
         main_view_pager.adapter = adapter
     }
 }

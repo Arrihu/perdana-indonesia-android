@@ -65,7 +65,7 @@ data class PracticeSeries(
 @Parcelize
 data class PracticeScore(
     val id: Int,
-    val score: Int,
+    var score: Int,
     val serie: Int,
-    val filled: Boolean
+    var filled: Boolean
 ) : Parcelable

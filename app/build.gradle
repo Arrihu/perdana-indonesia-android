@@ -54,6 +54,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.2.0-alpha03'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
     implementation "com.mikepenz:iconics-core:4.0.2"
     implementation "com.mikepenz:iconics-views:4.0.2"
     implementation 'com.mikepenz:typeicons-typeface:2.0.7.5-kotlin@aar'
@@ -104,6 +107,14 @@ dependencies {
     implementation 'com.schibstedspain.android:leku:6.4.0'
 
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+
+    implementation 'com.synnapps:carouselview:0.1.5'
+
+    debugImplementation 'com.facebook.flipper:flipper:0.30.1'
+    debugImplementation 'com.facebook.soloader:soloader:0.8.0'
+    debugImplementation 'com.facebook.flipper:flipper-network-plugin:0.30.1'
+    releaseImplementation 'com.facebook.flipper:flipper-noop:0.30.1'
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

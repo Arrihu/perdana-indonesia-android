@@ -50,7 +50,7 @@
     <string name="dummy_title">Lorem Ipsum Dolor Sit Amet Dan sebagainya entah saya juga lupa</string>
     <string name="dummy_date">Senin, 22 Desember 2019</string>
     <string name="presence">Hadir</string>
-    <string name="find_member">Cari peserta . . .</string>
+    <string name="find_member">Cari anggota . . .</string>
     <string name="applicant_hint">Pendaftar</string>
     <string name="notification_badge_hint">9+</string>
     <string name="notification_menu_title">Notifikasi</string>
@@ -69,4 +69,8 @@
     <string name="photo_scan_skck">Photo / Scan SKCK</string>
     <string name="accept">Terima</string>
     <string name="reject">Tolak</string>
+    <string name="register_number_here">Masukkan nomort registrasi disini . . .</string>
+    <string name="accept_member">Terima Anggota</string>
+    <string name="register_number_hint">Berikan Nomor Register pada anggota</string>
+    <string name="dashboard_is_not_available_yet">Dashboard belum tersedia</string>
 </resources>

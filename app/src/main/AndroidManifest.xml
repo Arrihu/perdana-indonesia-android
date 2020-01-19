@@ -29,7 +29,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:ignore="AllowBackup,UnusedAttribute">
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute">
         <activity
             android:name=".ui.splash.SplashScreenActivity"
             android:noHistory="true">
@@ -70,7 +70,12 @@
         <activity
             android:name=".ui.applicant.detail.ApplicantDetailActivity"
             android:windowSoftInputMode="stateHidden" />
-
+        <activity
+            android:name=".ui.photo.view.PhotoViewActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.member.list.MemberListActivity"
+            android:windowSoftInputMode="stateHidden" />
 
         <activity
             android:name="com.schibstedspain.leku.LocationPickerActivity"

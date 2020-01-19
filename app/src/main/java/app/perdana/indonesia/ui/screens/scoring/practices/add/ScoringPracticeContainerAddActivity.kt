@@ -34,7 +34,7 @@ import retrofit2.Response
  */
 class ScoringPracticeContainerAddActivity : AppCompatActivity() {
     private lateinit var viewModel: ScoringPracticeContainerAddViewModel
-    private var archerMemberResponse: ArcherMemberResponse? = null
+    private var archerMemberId : String? = null
 
     private val targetTypes = mutableListOf("PERDANA", "PUTA", "FITA")
     private val archeryRanges = mutableListOf<ArcheryRange>()
@@ -69,7 +69,7 @@ class ScoringPracticeContainerAddActivity : AppCompatActivity() {
 
     private fun initializeUi() {
         viewModel = ViewModelProvider(this).get(ScoringPracticeContainerAddViewModel::class.java)
-        archerMemberResponse = intent.getParcelableExtra(Constants.ARCHER_MEMBER_RESPONSE_OBJ)
+        archerMemberId = intent.getStringExtra(Constants.ARCHER_MEMBER_ID)
         initActionBar()
         initActionListener()
         initTargetType()
@@ -133,7 +133,7 @@ class ScoringPracticeContainerAddActivity : AppCompatActivity() {
         }
 
         viewModel.showLoading(true to "Membuat form skoring . . .")
-        viewModel.addNewPracticesContainer(formattedToken, archerMemberResponse?.id.toString(), practiceContainer).observe(this, Observer {response ->
+        viewModel.addNewPracticesContainer(formattedToken, archerMemberId.toString(), practiceContainer).observe(this, Observer {response ->
             onAddNewPracticesContainerResponse(response)
         })
     }

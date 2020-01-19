@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="89dp"
-    android:layout_height="89dp"
-    android:layout_gravity="center"
-    android:layout_marginBottom="8dp"
-    android:background="@drawable/bg_rounded_primary">
+    android:layout_width="110dp"
+    android:layout_height="89dp">
 
     <LinearLayout
         android:id="@+id/home_menu_item_container"
@@ -23,7 +20,8 @@
             android:layout_height="32dp"
             android:layout_gravity="center"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_account_circle_outline_white_48dp" />
+            android:src="@drawable/ic_account_circle_outline_white_48dp"
+            android:tint="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/home_menu_item_title"
@@ -32,7 +30,7 @@
             android:layout_marginTop="4dp"
             android:gravity="center"
             android:text="@string/applicant_hint"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="12sp"
             android:textStyle="bold" />
 
@@ -44,7 +42,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:layout_margin="8dp"
-        android:text="@string/notification_badge_hint"
         android:textColor="@color/color_orange"
         android:textSize="17sp"
         android:textStyle="bold" />
