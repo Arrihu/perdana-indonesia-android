@@ -1,10 +1,15 @@
 package app.perdana.indonesia.ui.screens.scoring.practices.series
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import app.perdana.indonesia.core.base.ApiResponseError
+import app.perdana.indonesia.core.base.ApiResponseModel
 import app.perdana.indonesia.data.remote.model.PracticeContainer
+import app.perdana.indonesia.data.remote.model.PracticeSeriesScore
 import app.perdana.indonesia.data.repository.PracticeApiRepository
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import retrofit2.HttpException
@@ -37,6 +42,21 @@ class ScoringPracticeSeriesViewModel : ViewModel() {
                 repository?.getPracticesContainer(token, containerId, archerId).also { emit(it) }
             } catch (e: HttpException) {
                 emit(null)
+            }
+        }
+
+    fun updateSeriesScore(token: String, id: String, body: PracticeSeriesScore) =
+        liveData(job) {
+            Log.e("SCORES", Gson().toJson(body))
+            try {
+                repository?.updateSeriesScore(token, id, body).also {
+                    when (it?.isSuccessful) {
+                        true -> emit(ApiResponseModel(data = it.body()))
+                        else -> emit(ApiResponseModel(error = ApiResponseError(it)))
+                    }
+                }
+            } catch (e: HttpException) {
+                emit(ApiResponseModel(exception = e))
             }
         }
 

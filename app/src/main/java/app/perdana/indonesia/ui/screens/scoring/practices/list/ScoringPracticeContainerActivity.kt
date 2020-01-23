@@ -77,7 +77,8 @@ class ScoringPracticeContainerActivity : AppCompatActivity() {
             val intent = Intent(this, ScoringPracticeContainerAddActivity::class.java)
             intent.putExtras(
                 bundleOf(
-                    Constants.ARCHER_MEMBER_RESPONSE_OBJ to archerMemberResponse
+                    Constants.ARCHER_MEMBER_RESPONSE_OBJ to archerMemberResponse,
+                    Constants.ARCHER_MEMBER_ID to archerMemberResponse?.id.toString()
                 )
             )
             startActivityForResult(intent, HAS_CHANGE_REQUEST)
@@ -124,7 +125,8 @@ class ScoringPracticeContainerActivity : AppCompatActivity() {
                 intent.putExtras(
                     bundleOf(
                         Constants.PRACTICE_CONTAINER_RESPONSE_OBJ to pc,
-                        Constants.ARCHER_MEMBER_RESPONSE_OBJ to archerMemberResponse
+                        Constants.ARCHER_MEMBER_RESPONSE_OBJ to archerMemberResponse,
+                        Constants.ARCHER_MEMBER_ID to archerMemberResponse?.id.toString()
                     )
                 )
                 startActivity(intent)

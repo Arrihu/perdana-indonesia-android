@@ -27,6 +27,7 @@ data class PracticeContainer(
     val modified: String? = null,
     val note: String? = null,
     val series: String,
+    val total: Int = 0,
     val target_type: String,
     var archery_range: Int? = null
 ) : Parcelable
@@ -51,14 +52,15 @@ data class PracticeContainerSeries(
 
 @Parcelize
 data class PracticeSeries(
-    val closed: Boolean,
+    var closed: Boolean,
     val created: String,
     val id: Int,
     val modified: String,
     val photo: String,
     val practice_container: Int,
-    val scores: List<PracticeScore> = mutableListOf(),
-    val serie: Int
+    var scores: List<PracticeScore> = mutableListOf(),
+    var serie: Int,
+    var total: Int = 0
 ) : Parcelable
 
 
@@ -69,3 +71,7 @@ data class PracticeScore(
     val serie: Int,
     var filled: Boolean
 ) : Parcelable
+
+data class PracticeSeriesScore(
+    val scores: MutableList<PracticeScore>
+)

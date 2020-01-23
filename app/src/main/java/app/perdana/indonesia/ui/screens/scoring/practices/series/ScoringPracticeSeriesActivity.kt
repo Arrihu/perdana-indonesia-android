@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.perdana.indonesia.R
+import app.perdana.indonesia.core.base.ApiResponseModel
 import app.perdana.indonesia.core.extension.getErrorDetail
 import app.perdana.indonesia.core.extension.gone
 import app.perdana.indonesia.core.extension.setupActionbar
@@ -17,8 +18,13 @@ import app.perdana.indonesia.core.utils.ProgressDialogHelper
 import app.perdana.indonesia.core.utils.formattedToken
 import app.perdana.indonesia.data.remote.model.PracticeContainer
 import app.perdana.indonesia.data.remote.model.PracticeContainerSeries
+import app.perdana.indonesia.data.remote.model.PracticeSeries
+import app.perdana.indonesia.data.remote.model.PracticeSeriesScore
 import kotlinx.android.synthetic.main.scoring_practice_series_activity.*
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.cancelButton
 import org.jetbrains.anko.longToast
+import org.jetbrains.anko.okButton
 import retrofit2.Response
 
 /**
@@ -68,7 +74,7 @@ class ScoringPracticeSeriesActivity : AppCompatActivity() {
             })
     }
 
-    private val HAS_CHANGE_REQUEST = 100
+    private var HAS_CHANGE = false
     private fun initActionListener() {
 
     }
@@ -93,6 +99,8 @@ class ScoringPracticeSeriesActivity : AppCompatActivity() {
             "Skoring, ${practiceContainer?.arrow} Arrow ${practiceContainer?.series} Rambahan pada jarak ${practiceContainer?.distance} Meter",
             true
         ) {
+            if (HAS_CHANGE) setResult(Activity.RESULT_OK, Intent())
+            
             finish()
         }
     }
@@ -100,11 +108,41 @@ class ScoringPracticeSeriesActivity : AppCompatActivity() {
     private lateinit var adapter: ScoringPracticeSeriesRecyclerViewAdapter
     private fun initPresenceItemRecyclerView() {
         adapter =
-            ScoringPracticeSeriesRecyclerViewAdapter { _ ->
-
+            ScoringPracticeSeriesRecyclerViewAdapter { ps ->
+                alert {
+                    title = "Kirim data skoring rambahan ke ${ps.serie}?"
+                    okButton {
+                        viewModel.showLoading(true to "Mengirim data skoring rambahan ke ${ps.serie}")
+                        viewModel.updateSeriesScore(
+                            formattedToken,
+                            ps.id.toString(),
+                            PracticeSeriesScore(ps.scores.toMutableList())
+                        ).observe(this@ScoringPracticeSeriesActivity, Observer { response ->
+                            onUpdateSeriesScoreHandler(response)
+                        })
+                        it.dismiss()
+                    }
+                    cancelButton {
+                        it.dismiss()
+                    }
+                }.show()
             }
         practice_scoring_practice_series_recycler_view.layoutManager = LinearLayoutManager(this)
         practice_scoring_practice_series_recycler_view.adapter = adapter
+    }
+
+    private fun onUpdateSeriesScoreHandler(response: ApiResponseModel<PracticeSeries>?) {
+        viewModel.hideLoading()
+        when {
+            response?.data != null -> {
+                HAS_CHANGE = true
+
+                longToast("Data skoring rambahan ke ${response.data.serie} berhasil di si`mpan")
+                adapter.updateDataPracticeSerie(response.data)
+            }
+            response?.error != null -> longToast(response.error.detail)
+            response?.exception != null -> longToast(response.exception.message.toString())
+        }
     }
 
     private fun showDotsLoading(show: Boolean) {
@@ -119,10 +157,19 @@ class ScoringPracticeSeriesActivity : AppCompatActivity() {
         else progressDialog?.dismiss()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (HAS_CHANGE_REQUEST == requestCode && resultCode == Activity.RESULT_OK) {
-            fetchScoringContainer()
+    override fun onBackPressed() {
+        if (HAS_CHANGE) {
+            setResult(Activity.RESULT_OK, Intent())
+            finish()
+        } else {
+            super.onBackPressed()
         }
     }
+
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (HAS_CHANGE_REQUEST == requestCode && resultCode == Activity.RESULT_OK) {
+//            fetchScoringContainer()
+//        }
+//    }
 }

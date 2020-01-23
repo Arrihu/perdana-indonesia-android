@@ -143,7 +143,10 @@ class ScoringMemberFragment : Fragment() {
     private fun initPresenceItemRecyclerView() {
         adapter =
             ScoringMemberRecyclerViewAdapter { pi ->
-                val bundle = bundleOf(Constants.ARCHER_MEMBER_ID to pi.id)
+                val bundle = bundleOf(
+                    Constants.ARCHER_MEMBER_ID to pi.id,
+                    Constants.ARCHER_MEMBER_RESPONSE_OBJ to pi
+                )
                 val intent = Intent(context, ScoringPracticeContainerActivity::class.java).apply {
                     putExtras(bundle)
                 }

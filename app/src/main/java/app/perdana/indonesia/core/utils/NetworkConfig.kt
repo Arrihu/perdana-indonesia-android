@@ -1,8 +1,6 @@
 package app.perdana.indonesia.core.utils
 
 import app.perdana.indonesia.BuildConfig.BASE_URL
-import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
-import com.facebook.flipper.plugins.network.NetworkFlipperPlugin
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,7 +14,6 @@ object NetworkConfig {
     private val createOkHttpClient: OkHttpClient = OkHttpClient().newBuilder()
         .connectTimeout(60, TimeUnit.SECONDS)
         .readTimeout(120, TimeUnit.SECONDS)
-        .addInterceptor(FlipperOkhttpInterceptor(NetworkFlipperPlugin()))
         .build()
 
     val client: Retrofit = Retrofit.Builder()
