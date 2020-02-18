@@ -23,12 +23,12 @@
             android:src="@drawable/perdana_ntb_transparent" />
     </androidx.appcompat.widget.Toolbar>
 
-    <View
-        android:id="@+id/main_toolbar_shadow"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="@drawable/drop_shadow"
-        app:layout_constraintTop_toBottomOf="@id/main_toolbar" />
+    <!--    <View-->
+    <!--        android:id="@+id/main_toolbar_shadow"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="3dp"-->
+    <!--        android:background="@drawable/drop_shadow"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/main_toolbar" />-->
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/main_view_pager"
@@ -36,7 +36,7 @@
         android:layout_height="0dp"
         android:background="@android:color/white"
         app:layout_constraintBottom_toTopOf="@id/main_bottom_navigation_view"
-        app:layout_constraintTop_toBottomOf="@id/main_toolbar_shadow" />
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/main_bottom_navigation_view"

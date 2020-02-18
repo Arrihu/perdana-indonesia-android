@@ -8,8 +8,6 @@ import app.perdana.indonesia.R
 import app.perdana.indonesia.core.utils.Constants
 import app.perdana.indonesia.core.utils.LocalStorage
 import app.perdana.indonesia.ui.intro.auth.AuthIntroActivity
-import kotlinx.android.synthetic.main.button_primary.*
-import kotlinx.android.synthetic.main.button_unpriority.*
 import kotlinx.android.synthetic.main.textview_primary_heading.*
 import kotlinx.android.synthetic.main.welcome_intro_activity.*
 
@@ -39,8 +37,6 @@ class WelcomeIntroActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         intro_text_description_body.text = getString(R.string.lorem)
-        primary_button_dark.text = getString(R.string.next)
-        transparent_unpriority_button.text = getString(R.string.skip)
 
         initViewPager()
         initActionListener()
@@ -55,8 +51,7 @@ class WelcomeIntroActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initActionListener() {
-        primary_button_dark.setOnClickListener(this)
-        transparent_unpriority_button.setOnClickListener(this)
+
     }
 
     private fun onViewPagerNext() {
@@ -75,13 +70,6 @@ class WelcomeIntroActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        when {
-            v === primary_button_dark -> {
-                onViewPagerNext()
-            }
-            v == transparent_unpriority_button -> {
-                onViewPagerSkip()
-            }
-        }
+
     }
 }

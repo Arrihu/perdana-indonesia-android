@@ -36,7 +36,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="text"
+                    android:inputType="textCapCharacters"
                     android:textSize="18sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -67,6 +67,7 @@
 
             <Spinner
                 android:id="@+id/register_club_spinner_regional"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="60dp" />
 
@@ -81,6 +82,7 @@
 
             <Spinner
                 android:id="@+id/register_club_spinner_province"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="60dp" />
 
@@ -95,6 +97,7 @@
 
             <Spinner
                 android:id="@+id/register_club_spinner_branch"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="60dp" />
 
@@ -242,7 +245,7 @@
                 android:textColor="@color/primaryText"
                 android:textSize="16sp" />
 
-            <com.google.android.material.card.MaterialCardView
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginBottom="8dp"
@@ -268,49 +271,50 @@
                     android:padding="4dp"
                     android:src="@drawable/ic_camera" />
 
-            </com.google.android.material.card.MaterialCardView>
+            </androidx.cardview.widget.CardView>
+
+            <!--            <TextView-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="8dp"-->
+            <!--                android:padding="4dp"-->
+            <!--                android:text="@string/photo_scan_skck"-->
+            <!--                android:textColor="@color/primaryText"-->
+            <!--                android:textSize="16sp" />-->
+
+            <!--            <com.google.android.material.card.MaterialCardView-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="200dp"-->
+            <!--                app:cardBackgroundColor="@color/grey_200"-->
+            <!--                app:cardCornerRadius="12dp"-->
+            <!--                app:cardElevation="0dp">-->
+
+            <!--                <ImageView-->
+            <!--                    android:id="@+id/register_card_photo_image_skck"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:layout_gravity="center"-->
+            <!--                    android:contentDescription="@string/app_name"-->
+            <!--                    android:padding="4dp"-->
+            <!--                    android:scaleType="centerCrop" />-->
+
+            <!--                <ImageView-->
+            <!--                    android:id="@+id/register_card_photo_image_camera_skck"-->
+            <!--                    android:layout_width="55dp"-->
+            <!--                    android:layout_height="55dp"-->
+            <!--                    android:layout_gravity="center"-->
+            <!--                    android:contentDescription="@string/app_name"-->
+            <!--                    android:padding="4dp"-->
+            <!--                    android:src="@drawable/ic_camera" />-->
+
+            <!--            </com.google.android.material.card.MaterialCardView>-->
 
             <TextView
+                android:id="@+id/register_button_register"
+                style="@style/ButtonPrimaryStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:padding="4dp"
-                android:text="@string/photo_scan_skck"
-                android:textColor="@color/primaryText"
-                android:textSize="16sp" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:cardBackgroundColor="@color/grey_200"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="0dp">
-
-                <ImageView
-                    android:id="@+id/register_card_photo_image_skck"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/app_name"
-                    android:padding="4dp"
-                    android:scaleType="centerCrop" />
-
-                <ImageView
-                    android:id="@+id/register_card_photo_image_camera_skck"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/app_name"
-                    android:padding="4dp"
-                    android:src="@drawable/ic_camera" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <include
-                layout="@layout/button_primary"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="8dp" />
+                android:text="@string/register" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

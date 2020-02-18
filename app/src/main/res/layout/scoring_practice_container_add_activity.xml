@@ -17,7 +17,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/Theme.AppCompat.Light"
         app:subtitleTextAppearance="@style/ToolbarSubTitleAppearance"
-        app:titleTextAppearance="@style/ToolbarTitleAppearance" />
+        app:titleTextAppearance="@style/ToolbarTitleAppearance"
+        app:titleTextColor="@android:color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -112,6 +113,7 @@
 
         <Spinner
             android:id="@+id/scoring_practice_add_spinner_target_type"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
             android:layout_width="match_parent"
             android:layout_height="60dp" />
 
@@ -126,6 +128,7 @@
 
         <Spinner
             android:id="@+id/scoring_practice_add_spinner_archery_range"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
             android:layout_width="match_parent"
             android:layout_height="60dp" />
 
@@ -148,11 +151,13 @@
                 android:textSize="18sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <include
-            layout="@layout/button_primary"
+        <TextView
+            android:id="@+id/scoring_practice_add_button_submit"
+            style="@style/ButtonPrimaryStyle"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="8dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/save_scoring_form" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,8 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import app.perdana.indonesia.R
 import app.perdana.indonesia.ui.login.LoginActivity
 import app.perdana.indonesia.ui.register.RegisterActivity
-import kotlinx.android.synthetic.main.button_outlined_primary.*
-import kotlinx.android.synthetic.main.button_primary.*
+import kotlinx.android.synthetic.main.auth_intro_activity.*
 
 /**
  * Created by ebysofyan on 12/2/19.
@@ -28,8 +27,8 @@ class AuthIntroActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initActionListener() {
-        primary_button_dark.setOnClickListener(this)
-        primary_button_outlined_dark.setOnClickListener(this)
+        auth_intro_button_login.setOnClickListener(this)
+        auth_intro_button_register.setOnClickListener(this)
     }
 
     private fun navigateToLoginScreen() {
@@ -41,11 +40,11 @@ class AuthIntroActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        when {
-            v === primary_button_dark -> {
+        when (v) {
+            auth_intro_button_login -> {
                 navigateToLoginScreen()
             }
-            v == primary_button_outlined_dark -> {
+            auth_intro_button_register -> {
                 navigateToRegisterScreen()
             }
         }

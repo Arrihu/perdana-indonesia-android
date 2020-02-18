@@ -39,3 +39,11 @@ class ApiResponseModel<T>(
     val error: ApiResponseError? = null,
     val exception: Exception? = null
 )
+
+sealed class BaseApiResponseModel<out T> {
+    data class Success<T>(val data: T) : BaseApiResponseModel<T>()
+    data class Failure(val statusCode: Int?, val detail: String) :
+        BaseApiResponseModel<Nothing>()
+
+    data class Error(val e: Exception) : BaseApiResponseModel<Nothing>()
+}

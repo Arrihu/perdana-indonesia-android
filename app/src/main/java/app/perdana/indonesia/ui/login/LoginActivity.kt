@@ -18,7 +18,6 @@ import app.perdana.indonesia.data.remote.model.LoginResponse
 import app.perdana.indonesia.ui.main.MainActivity
 import app.perdana.indonesia.ui.register.RegisterActivity
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.button_primary.*
 import kotlinx.android.synthetic.main.login_activity.*
 import kotlinx.android.synthetic.main.toolbar_light_theme.*
 import okhttp3.ResponseBody
@@ -56,7 +55,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initActionListener() {
-        primary_button_dark.setOnClickListener(this)
+        login_button_login.setOnClickListener(this)
         login_text_register.setOnClickListener(this)
     }
 
@@ -117,16 +116,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        when {
-            v === primary_button_dark -> {
+        when(v) {
+            login_button_login -> {
                 submitLogin()
             }
 
-//            v === login_text_no_account -> {
-//                startActivity(Intent(this, RegisterActivity::class.java))
-//            }
-
-            v === login_text_register -> {
+            login_text_register -> {
                 startActivity(Intent(this, RegisterActivity::class.java))
                 finish()
             }
@@ -135,13 +130,13 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun showLoading(show: Boolean) {
         if (show) {
-            primary_button_dark.apply {
+            login_button_login.apply {
                 isEnabled = false
                 text = ""
             }
             login_loading.visible()
         } else {
-            primary_button_dark.apply {
+            login_button_login.apply {
                 isEnabled = true
                 text = getString(R.string.login)
             }

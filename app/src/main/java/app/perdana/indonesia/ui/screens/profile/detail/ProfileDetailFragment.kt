@@ -23,7 +23,6 @@ import app.perdana.indonesia.data.remote.model.ClubUnitCommiteMemberResponse
 import app.perdana.indonesia.ui.intro.auth.AuthIntroActivity
 import com.google.gson.Gson
 import com.google.gson.JsonElement
-import kotlinx.android.synthetic.main.button_outlined_primary.*
 import kotlinx.android.synthetic.main.profile_fragment.*
 import kotlinx.android.synthetic.main.profile_item_view.view.*
 import org.jetbrains.anko.longToast
@@ -53,8 +52,7 @@ class ProfileDetailFragment : Fragment(), View.OnClickListener {
     }
 
     private fun initializeUi() {
-        primary_button_outlined_dark.text = getString(R.string.logout)
-        primary_button_outlined_dark.setOnClickListener(this)
+        profile_button_logout.setOnClickListener(this)
 
         viewModel.getLoading().observe(this.viewLifecycleOwner, Observer {
             showLoading(it)
@@ -77,9 +75,9 @@ class ProfileDetailFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        when {
-            v === primary_button_outlined_dark -> {
-                LocalStorage.clear(v.context)
+        when (v) {
+            profile_button_logout -> {
+                LocalStorage.clear(v!!.context)
                 startActivity(Intent(v.context, AuthIntroActivity::class.java))
                 activity?.finishAffinity()
             }

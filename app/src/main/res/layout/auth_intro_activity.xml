@@ -61,15 +61,20 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent">
 
-            <include
-                layout="@layout/button_primary"
+            <TextView
+                android:id="@+id/auth_intro_button_login"
+                style="@style/ButtonPrimaryStyle"
                 android:layout_width="match_parent"
-                android:layout_height="60dp" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/login" />
 
-            <include
-                layout="@layout/button_outlined_primary"
+            <TextView
+                android:id="@+id/auth_intro_button_register"
+                style="@style/ButtonOutlineDisableStyle"
                 android:layout_width="match_parent"
-                android:layout_height="60dp" />
+                android:layout_height="wrap_content"
+                android:text="@string/register" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

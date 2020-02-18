@@ -27,11 +27,20 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(R.layout.splash_screen_activity)
 
         Handler().postDelayed({
-            navigateTo()
+            navigateToLogin()
         }, DELAY_TO_NAVIGATE)
     }
 
-    private fun navigateTo() {
+    private fun navigateToLogin() {
+        val isAuthenticated =
+            LocalStorage.getString(this, Constants.TOKEN)?.isNotEmpty() ?: false
+
+        val intent = if (isAuthenticated) Intent(this, MainActivity::class.java)
+        else Intent(this, AuthIntroActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun navigateToWelcomeIntro() {
         val isIntroDisplayed =
             LocalStorage.getString(this, Constants.IS_INTRO_DISPLAYED)?.isNotEmpty() ?: false
         val intent = if (isIntroDisplayed) {

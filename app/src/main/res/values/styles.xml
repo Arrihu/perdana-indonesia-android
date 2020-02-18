@@ -1,30 +1,151 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">Roboto-Medium</item>
     </style>
 
     <style name="ToolbarTitleText" parent="Base.TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">Roboto-Bold</item>
     </style>
 
     <style name="ToolbarTitleAppearance" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/primaryText</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">Roboto-Bold</item>
         <!-- include other attributes you want to change: textColor, textStyle, etc -->
     </style>
 
     <style name="ToolbarSubTitleAppearance" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">Roboto-Bold</item>
         <!-- include other attributes you want to change: textColor, textStyle, etc -->
     </style>
 
+    <style name="topUpYourEWallet">
+        <item name="android:fontFamily">Roboto-Bold</item>
+        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="android:textSize">44sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingMultiplier">1.33</item>
+    </style>
+
+    <style name="TextTitleHeaderStyle">
+        <item name="android:fontFamily">Roboto-Bold</item>
+        <item name="android:textColor">#FF233269</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingMultiplier">2</item>
+    </style>
+
+    <style name="TextTitleHeaderLightStyle">
+        <item name="android:fontFamily">Roboto-Light</item>
+        <item name="android:textColor">#FF233269</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:lineSpacingMultiplier">2</item>
+    </style>
+
+    <style name="TextInputLayoutStyle" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">Roboto-Medium</item>
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
+    <style name="ButtonPrimaryStyle" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">Roboto-Bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:height">55dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/ripple_primary_button_rounded_background</item>
+    </style>
+
+    <style name="ButtonWhiteStyle" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">Roboto-Bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:height">55dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:background">@drawable/ripple_white_button_rounded_background</item>
+    </style>
+
+    <style name="ButtonOutlinePrimaryStyle" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">Roboto-Bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:height">55dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:background">
+            @drawable/ripple_outlined_primary_button_rounded_background
+        </item>
+    </style>
+
+    <style name="ButtonOutlineWhiteStyle" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">Roboto-Bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:height">55dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:background">
+            @drawable/ripple_outlined_white_button_rounded_background
+        </item>
+    </style>
+
+    <style name="ButtonOutlineDisableStyle" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">Roboto-Bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:height">55dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/secondaryText</item>
+        <item name="android:background">
+            @drawable/ripple_outlined_disable_button_rounded_background
+        </item>
+    </style>
+
+    <style name="TextSubtitle">
+        <item name="android:fontFamily">Roboto-Medium</item>
+        <item name="android:textColor">#FF233269</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TabLayoutStyle" parent="Widget.Design.TabLayout">
+        <item name="tabBackground">@android:color/white</item>
+        <item name="tabSelectedTextColor">@color/colorPrimary</item>
+        <item name="tabTextColor">@color/colorPrimary</item>
+        <item name="tabIndicatorColor">@color/colorPrimary</item>
+        <item name="tabTextAppearance">@style/ToolbarTitleText</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottom_sheet_rounded_top_background</item>
+    </style>
+
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
 </resources>

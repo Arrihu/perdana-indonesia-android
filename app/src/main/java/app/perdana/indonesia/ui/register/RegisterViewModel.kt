@@ -3,6 +3,8 @@ package app.perdana.indonesia.ui.register
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import app.perdana.indonesia.core.base.BaseApiResponseModel
+import app.perdana.indonesia.core.extension.getErrorDetail
 import app.perdana.indonesia.core.extension.then
 import app.perdana.indonesia.data.remote.model.MemberRequest
 import app.perdana.indonesia.data.repository.GeneralApiRepository
@@ -21,14 +23,14 @@ class RegisterViewModel : ViewModel() {
     private val repository: GeneralApiRepository? = GeneralApiRepository.getInstance()
     private val userRepository: UserApiRepository? = UserApiRepository.getInstance()
     private var job = SupervisorJob() + Dispatchers.IO
-    private val loading = MutableLiveData<Pair<Boolean, String>>()
+    private val loading = MutableLiveData<Boolean>()
 
-    fun showLoading(value: Pair<Boolean, String> = true to "Loading") {
+    fun showLoading(value: Boolean) {
         loading.value = value
     }
 
     fun hideLoading() {
-        loading.value = false to ""
+        loading.value = false
     }
 
     fun getLoading() = loading
@@ -73,13 +75,24 @@ class RegisterViewModel : ViewModel() {
         }
     }
 
-    fun register(memberRequest: MemberRequest, photos: MutableList<Pair<String, File?>>) = liveData(job) {
-        try {
-            userRepository?.register(memberRequest, photos).also { emit(it) }
-        } catch (e: HttpException) {
-            emit(null)
+    fun register(memberRequest: MemberRequest, photos: MutableList<Pair<String, File?>>) =
+        liveData(job) {
+            try {
+                userRepository?.register(memberRequest, photos).also {
+                    when (it?.isSuccessful) {
+                        true -> emit(BaseApiResponseModel.Success(it))
+                        else -> emit(
+                            BaseApiResponseModel.Failure(
+                                it?.code(),
+                                it?.errorBody()?.getErrorDetail().toString()
+                            )
+                        )
+                    }
+                }
+            } catch (e: HttpException) {
+                emit(BaseApiResponseModel.Error(e))
+            }
         }
-    }
 
     fun cancelJob() = job.isActive.then { job.cancel() }
 }

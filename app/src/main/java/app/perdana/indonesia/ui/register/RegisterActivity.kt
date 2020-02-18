@@ -1,7 +1,8 @@
 package app.perdana.indonesia.ui.register
 
 import android.Manifest
-import android.app.ProgressDialog
+import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,19 +14,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import app.perdana.indonesia.R
+import app.perdana.indonesia.core.base.BaseApiResponseModel
 import app.perdana.indonesia.core.extension.compress
 import app.perdana.indonesia.core.extension.getErrorDetail
 import app.perdana.indonesia.core.extension.loadWithGlidePlaceholder
 import app.perdana.indonesia.core.extension.setupActionbar
+import app.perdana.indonesia.core.utils.SpinDialogLoadingUtils
 import app.perdana.indonesia.data.remote.model.*
-import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import kotlinx.android.synthetic.main.button_primary.*
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.register_activity.*
 import kotlinx.android.synthetic.main.toolbar_light_theme.*
 import org.jetbrains.anko.alert
@@ -43,7 +45,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
     companion object {
         const val ID_CARD_PHOTO_REQUEST_CODE = 101
-        const val SKCK_PHOTO_REQUEST_CODE = 102
+//        const val SKCK_PHOTO_REQUEST_CODE = 102
     }
 
     private val photos = mutableListOf<Pair<String, File?>>()
@@ -80,6 +82,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    private lateinit var loading: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,6 +93,10 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun initializeUi() {
         viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
+        loading = SpinDialogLoadingUtils.showSpinDialogLoading(this)
+        viewModel.getLoading().observe(this, Observer { loadingState ->
+            showLoading(loadingState)
+        })
 
         initActionBar()
         initActionListener()
@@ -118,11 +125,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initApiRequest() {
-        viewModel.getLoading().observe(this, Observer { loading ->
-            showLoading(loading.first, loading.second)
-        })
-
-        viewModel.showLoading(true to "Menyiapkan data Regional")
+        viewModel.showLoading(true)
         viewModel.fetchRegionals().observe(this, Observer { response ->
             onRegionalsLoadedResponse(response)
         })
@@ -142,7 +145,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     private fun onRegionalsResponseSuccess(regionalsResponse: List<Regional>?) {
         regionalsResponse?.let {
             this.regionals.clear()
-            this.regionals.add(Regional(0, "Pilih Regional"))
+            this.regionals.add(Regional(0, "Pilih Rayon"))
             this.regionals.addAll(it)
             val adapter = ArrayAdapter<Regional>(
                 this@RegisterActivity,
@@ -155,7 +158,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun fetchProvinces(regionalId: String) {
-        viewModel.showLoading(true to "Menyiapkan data Provinsi")
+        viewModel.showLoading(true)
         viewModel.fetchProvinces(regionalId).observe(this, Observer { response ->
             onProvincesLoadedResponse(response)
         })
@@ -187,7 +190,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun fetchBranchs(provinceId: String) {
-        viewModel.showLoading(true to "Menyiapkan data Cabang")
+        viewModel.showLoading(true)
         viewModel.fetchBranchs(provinceId).observe(this, Observer { response ->
             onBranchsLoadedResponse(response)
         })
@@ -219,7 +222,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun fetchClubs(branchId: String) {
-        viewModel.showLoading(true to "Menyiapkan data Klub")
+        viewModel.showLoading(true)
         viewModel.fetchClubs(branchId).observe(this, Observer { response ->
             onClubsLoadedResponse(response)
         })
@@ -239,7 +242,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun fetchSatuans(branchId: String) {
-        viewModel.showLoading(true to "Menyiapkan data Satuan")
+        viewModel.showLoading(true)
         viewModel.fetchUnits(branchId).observe(this, Observer { response ->
             onSatuansLoadedResponse(response)
         })
@@ -262,13 +265,12 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         _toolbar.setupActionbar(this, getString(R.string.register), true) {
             finish()
         }
-        primary_button_dark.text = getString(R.string.register)
     }
 
     private fun initActionListener() {
-        primary_button_dark.setOnClickListener(this)
+        register_button_register.setOnClickListener(this)
         register_card_photo_image_camera.setOnClickListener(this)
-        register_card_photo_image_camera_skck.setOnClickListener(this)
+//        register_card_photo_image_camera_skck.setOnClickListener(this)
         register_club_input_layout.setOnClickListener(this)
 
         register_radio_group_org.setOnCheckedChangeListener { group, checkedId ->
@@ -338,8 +340,8 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
             return false
         }
 
-        if (photos.size < 2) {
-            longToast("Lengkapi scan KTP dan atau SKCK anda")
+        if (photos.size < 1) {
+            longToast("Sertakan scan KTP anda")
             return false
         }
 
@@ -362,41 +364,40 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                 identity_card_number = register_id_card_input_layout.editText?.text.toString()
             )
 
-            viewModel.showLoading(true to "Sedang mengirim data ke server, silahkan menunggu . . .")
+            viewModel.showLoading(true)
             viewModel.register(member, photos).observe(this, Observer { response ->
-                onRegisterResponse(response)
+                handleRegisterResponse(response)
             })
         }
     }
 
-    private fun onRegisterResponse(response: Response<JsonElement>?) {
+    private fun handleRegisterResponse(response: BaseApiResponseModel<Response<JsonElement>>) {
         viewModel.hideLoading()
-        if (response != null) {
-            when (response.isSuccessful) {
-                true -> {
-                    alert {
-                        message =
-                            "Register berhasil, akun anda akan di verifikasi oleh pengurus klub sebelum bisa digunakan"
-                        isCancelable = false
-                        okButton {
-                            clearForm()
-                            it.dismiss()
-                        }
-                    }.show()
-                }
-                else -> {
-                    Log.e("RESPONSE", Gson().toJson(response.raw().toString()))
-                    longToast(response.errorBody()?.getErrorDetail().toString())
-                }
+        when (response) {
+            is BaseApiResponseModel.Success -> {
+                alert {
+                    message =
+                        getString(R.string.register_successfully)
+                    isCancelable = false
+                    okButton {
+                        clearForm()
+                        it.dismiss()
+                    }
+                }.show()
             }
-        } else longToast(getString(R.string.no_internet_connection))
+            is BaseApiResponseModel.Failure -> Toasty.error(this, response.detail).show()
+            is BaseApiResponseModel.Error -> Toasty.error(
+                this,
+                response.e.message.toString()
+            ).show()
+        }
     }
 
     private fun clearForm() {
         resetClubUnit()
         photos.clear()
         register_card_photo_image.setImageResource(0)
-        register_card_photo_image_skck.setImageResource(0)
+//        register_card_photo_image_skck.setImageResource(0)
         register_username_input_layout.editText?.text?.clear()
         register_password_input_layout.editText?.text?.clear()
         register_full_name_input_layout.editText?.text?.clear()
@@ -407,7 +408,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            primary_button_dark -> {
+            register_button_register -> {
                 submit()
             }
 
@@ -415,9 +416,9 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                 EasyImage.openChooserWithGallery(this, "Pilih Photo", ID_CARD_PHOTO_REQUEST_CODE)
             }
 
-            register_card_photo_image_camera_skck -> {
-                EasyImage.openChooserWithGallery(this, "Pilih Photo", SKCK_PHOTO_REQUEST_CODE)
-            }
+//            register_card_photo_image_camera_skck -> {
+//                EasyImage.openChooserWithGallery(this, "Pilih Photo", SKCK_PHOTO_REQUEST_CODE)
+//            }
 
             register_club_input_layout -> {
                 showClubSatuanDialog()
@@ -427,6 +428,7 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
 
     private var club: Club? = null
     private var unit: Satuan? = null
+    @SuppressLint("InflateParams")
     private fun showClubSatuanDialog() {
         val dialogBuilder = AlertDialog.Builder(this)
         val view = LayoutInflater.from(this).inflate(R.layout.club_units_dialog_view, null)
@@ -458,18 +460,9 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private var progressDialog: ProgressDialog? = null
-    private fun showLoading(show: Boolean, msg: String = "Loading") {
-        if (progressDialog == null) {
-            progressDialog = ProgressDialog(this)
-        }
-        progressDialog?.apply {
-            setTitle("")
-            setMessage(msg)
-            isIndeterminate = true
-        }
-        if (show) progressDialog?.show()
-        else progressDialog?.dismiss()
+    private fun showLoading(loadingState: Boolean) {
+        if (loadingState) loading.show()
+        else loading.dismiss()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -496,14 +489,14 @@ class RegisterActivity : AppCompatActivity(), View.OnClickListener {
                                 .also { photos.remove(it) }
                             photos.add(idCardPairedPhoto)
                         }
-                        SKCK_PHOTO_REQUEST_CODE -> {
-                            val skckPairedPhoto = "skck" to p0[0].compress(this@RegisterActivity)
-                            register_card_photo_image_skck.loadWithGlidePlaceholder(skckPairedPhoto.second)
-
-                            photos.firstOrNull { it.first == skckPairedPhoto.first }
-                                .also { photos.remove(it) }
-                            photos.add(skckPairedPhoto)
-                        }
+//                        SKCK_PHOTO_REQUEST_CODE -> {
+//                            val skckPairedPhoto = "skck" to p0[0].compress(this@RegisterActivity)
+//                            register_card_photo_image_skck.loadWithGlidePlaceholder(skckPairedPhoto.second)
+//
+//                            photos.firstOrNull { it.first == skckPairedPhoto.first }
+//                                .also { photos.remove(it) }
+//                            photos.add(skckPairedPhoto)
+//                        }
                     }
                 }
             })

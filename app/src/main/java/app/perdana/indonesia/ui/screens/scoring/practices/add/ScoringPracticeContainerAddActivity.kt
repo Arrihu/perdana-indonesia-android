@@ -22,7 +22,6 @@ import app.perdana.indonesia.data.remote.model.ArcherMemberResponse
 import app.perdana.indonesia.data.remote.model.ArcheryRange
 import app.perdana.indonesia.data.remote.model.PracticeContainer
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.button_primary.*
 import kotlinx.android.synthetic.main.scoring_practice_container_add_activity.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.longToast
@@ -86,8 +85,7 @@ class ScoringPracticeContainerAddActivity : AppCompatActivity() {
     }
 
     private fun initActionListener() {
-        primary_button_dark.text = "Simpan Form Skoring"
-        primary_button_dark.setOnClickListener {
+        scoring_practice_add_button_submit.setOnClickListener {
             submit()
         }
     }
