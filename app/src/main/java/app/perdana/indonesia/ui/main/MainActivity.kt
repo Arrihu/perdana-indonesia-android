@@ -1,5 +1,6 @@
 package app.perdana.indonesia.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -9,7 +10,9 @@ import app.perdana.indonesia.R
 import app.perdana.indonesia.core.adapters.ViewPagerAdapter
 import app.perdana.indonesia.core.extension.setupActionbar
 import app.perdana.indonesia.core.utils.Constants
+import app.perdana.indonesia.core.utils.InAppUpdateChecker
 import app.perdana.indonesia.core.utils.currentUserRole
+import app.perdana.indonesia.ui.scanner.ScannerFragment
 import app.perdana.indonesia.ui.screens.main.MainFragment
 import app.perdana.indonesia.ui.screens.presence.container.PresenceContainerFragment
 import app.perdana.indonesia.ui.screens.profile.detail.ProfileDetailFragment
@@ -27,18 +30,18 @@ class MainActivity : AppCompatActivity() {
                     main_view_pager.currentItem = 0
                     true
                 }
-                R.id.bottom_menu_presence -> {
+                R.id.bottom_menu_scan -> {
                     main_view_pager.currentItem = 1
                     true
                 }
-                R.id.bottom_menu_scoring -> {
-                    if (currentUserRole != Constants.UserRole.CLUB_SATUAN_MANAGER) {
-                        main_view_pager.currentItem = 1
-                    } else {
-                        main_view_pager.currentItem = 2
-                    }
-                    true
-                }
+//                R.id.bottom_menu_scoring -> {
+//                    if (currentUserRole != Constants.UserRole.CLUB_SATUAN_MANAGER) {
+//                        main_view_pager.currentItem = 1
+//                    } else {
+//                        main_view_pager.currentItem = 2
+//                    }
+//                    true
+//                }
                 R.id.bottom_menu_profile -> {
                     main_view_pager.currentItem = main_view_pager.adapter?.count?.minus(1)!!
                     true
@@ -57,14 +60,15 @@ class MainActivity : AppCompatActivity() {
     private fun initializeUi() {
         main_toolbar.setupActionbar(this, "", false)
         main_bottom_navigation_view.apply {
-            itemIconTintList = null
-            if (currentUserRole != Constants.UserRole.CLUB_SATUAN_MANAGER) {
-                menu.removeItem(R.id.bottom_menu_presence)
-            }
+//            itemIconTintList = null
+//            if (currentUserRole != Constants.UserRole.CLUB_SATUAN_MANAGER) {
+//                menu.removeItem(R.id.bottom_menu_presence)
+//            }
             setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         }
 
         initViewPager()
+        InAppUpdateChecker.startInAppUpdateFlow(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -98,16 +102,21 @@ class MainActivity : AppCompatActivity() {
     private fun initViewPager() {
         val adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.fragments.add(MainFragment.newInstance() to getString(R.string.navigation_home_title))
-        if (currentUserRole == Constants.UserRole.CLUB_SATUAN_MANAGER) {
-            adapter.fragments.add(PresenceContainerFragment.newInstance() to getString(R.string.navigation_presence_title))
-            adapter.fragments.add(ScoringMemberFragment.newInstance() to getString(R.string.navigation_scoring_title))
-        } else {
-            adapter.fragments.add(SelfScoringPracticeContainerFragment.newInstance() to getString(R.string.navigation_scoring_title))
-        }
+        adapter.fragments.add(ScannerFragment.newInstance() to getString(R.string.scan))
         adapter.fragments.add(ProfileDetailFragment.newInstance() to getString(R.string.navigation_profile_title))
 
         main_view_pager.addOnPageChangeListener(onPageChangeListener)
         main_view_pager.offscreenPageLimit = adapter.fragments.size
         main_view_pager.adapter = adapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        InAppUpdateChecker.resumeInAppUpdateFlow(this)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        InAppUpdateChecker.onInAppActivityResult(requestCode, resultCode)
     }
 }

@@ -12,9 +12,14 @@ data class LoginRequest(
 )
 
 data class LoginResponse(
-    val member: PresenceItemMember,
-    val role: String? = null,
-    val token: String? = null
+    val token: String,
+    val user: LoginResponseUser
+)
+
+data class LoginResponseUser(
+    val full_name: String,
+    val group: String,
+    val username: String
 )
 
 data class Member(

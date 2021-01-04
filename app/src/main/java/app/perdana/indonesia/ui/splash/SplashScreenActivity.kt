@@ -11,6 +11,7 @@ import app.perdana.indonesia.core.utils.Constants
 import app.perdana.indonesia.core.utils.LocalStorage
 import app.perdana.indonesia.ui.intro.auth.AuthIntroActivity
 import app.perdana.indonesia.ui.intro.welcome.WelcomeIntroActivity
+import app.perdana.indonesia.ui.login.LoginActivity
 import app.perdana.indonesia.ui.main.MainActivity
 
 /**
@@ -36,7 +37,7 @@ class SplashScreenActivity : AppCompatActivity() {
             LocalStorage.getString(this, Constants.TOKEN)?.isNotEmpty() ?: false
 
         val intent = if (isAuthenticated) Intent(this, MainActivity::class.java)
-        else Intent(this, AuthIntroActivity::class.java)
+        else Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
 

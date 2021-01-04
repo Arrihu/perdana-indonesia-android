@@ -59,10 +59,10 @@ class ProfileDetailFragment : Fragment(), View.OnClickListener {
         })
 
         viewModel.setLoading(true)
-        viewModel.getProfile(context?.formattedToken.toString())
-            .observe(this.viewLifecycleOwner, Observer { response ->
-                onProfileResponse(response)
-            })
+//        viewModel.getProfile(context?.formattedToken.toString())
+//            .observe(this.viewLifecycleOwner, Observer { response ->
+//                onProfileResponse(response)
+//            })
     }
 
     private fun onProfileResponse(response: Response<JsonElement>?) {

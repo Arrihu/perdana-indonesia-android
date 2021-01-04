@@ -9,16 +9,16 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/bottom_menu_presence"
+        android:id="@+id/bottom_menu_scan"
         android:icon="@drawable/ic_barcode_scan_grey600_24dp"
-        android:title="@string/navigation_presence_title"
+        android:title="@string/scan"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/bottom_menu_scoring"
-        android:icon="@drawable/ic_bullseye_arrow_grey600_24dp"
-        android:title="@string/navigation_scoring_title"
-        app:showAsAction="always" />
+<!--    <item-->
+<!--        android:id="@+id/bottom_menu_scoring"-->
+<!--        android:icon="@drawable/ic_bullseye_arrow_grey600_24dp"-->
+<!--        android:title="@string/navigation_scoring_title"-->
+<!--        app:showAsAction="always" />-->
 
     <item
         android:id="@+id/bottom_menu_profile"

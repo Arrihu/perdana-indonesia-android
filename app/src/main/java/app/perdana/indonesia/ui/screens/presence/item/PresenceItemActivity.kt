@@ -44,7 +44,7 @@ class PresenceItemActivity : AppCompatActivity() {
     private fun initializeUi() {
         viewModel = ViewModelProvider(this).get(PresenceItemViewModel::class.java)
         presenceContainerResponse =
-            intent.getParcelableExtra(Constants.PRESENCE_CONTAINER_RESPONSE_OBJ) as PresenceContainerResponse
+            intent.getParcelableExtra(Constants.PRESENCE_CONTAINER_RESPONSE_OBJ)
         initActionBar()
         initActionListener()
         initPresenceItemRecyclerView()
@@ -106,7 +106,7 @@ class PresenceItemActivity : AppCompatActivity() {
     private lateinit var adapter: PresenceItemRecyclerViewAdapter
     private fun initPresenceItemRecyclerView() {
         adapter =
-            PresenceItemRecyclerViewAdapter { pi ->
+            PresenceItemRecyclerViewAdapter { _ ->
 
             }
         presence_item_recycler_view.layoutManager = LinearLayoutManager(this)
@@ -173,5 +173,4 @@ class PresenceItemActivity : AppCompatActivity() {
             showPresenceConfirmationDialog(scannerResult.toString())
         }
     }
-
 }

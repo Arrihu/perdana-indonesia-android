@@ -3,7 +3,7 @@ package app.perdana.indonesia.data.repository
 import app.perdana.indonesia.core.extension.addMapRequestBody
 import app.perdana.indonesia.core.extension.addToRequestBody
 import app.perdana.indonesia.core.utils.NetworkConfig
-import app.perdana.indonesia.data.remote.api.UserApiService
+import app.perdana.indonesia.data.remote.api.ArcherApiService
 import app.perdana.indonesia.data.remote.model.LoginRequest
 import app.perdana.indonesia.data.remote.model.LoginResponse
 import app.perdana.indonesia.data.remote.model.MemberRequest
@@ -17,13 +17,13 @@ import java.io.File
  * Created by ebysofyan on 12/2/19.
  */
 
-class UserApiRepository {
+class ArcherApiRepository {
     companion object {
-        private var instance: UserApiRepository? = null
-        fun getInstance(): UserApiRepository? {
+        private var instance: ArcherApiRepository? = null
+        fun getInstance(): ArcherApiRepository? {
             if (instance == null) {
-                synchronized(UserApiRepository::class) {
-                    instance = UserApiRepository()
+                synchronized(ArcherApiRepository::class) {
+                    instance = ArcherApiRepository()
                 }
             }
             return instance
@@ -31,7 +31,7 @@ class UserApiRepository {
     }
 
     suspend fun login(loginRequest: LoginRequest): Response<LoginResponse> {
-        val service = NetworkConfig.client.create(UserApiService::class.java)
+        val service = NetworkConfig.client.create(ArcherApiService::class.java)
         return service.login(loginRequest)
     }
 
@@ -39,7 +39,7 @@ class UserApiRepository {
         memberRequest: MemberRequest,
         photos: MutableList<Pair<String, File?>>
     ): Response<JsonElement> {
-        val service = NetworkConfig.client.create(UserApiService::class.java)
+        val service = NetworkConfig.client.create(ArcherApiService::class.java)
         val textRequestBody = HashMap<String, RequestBody>()
             .addMapRequestBody("username", memberRequest.user.username.toString())
             .addMapRequestBody("password", memberRequest.user.password.toString())

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,21 +44,10 @@ class MainFragment : Fragment() {
         )
 
         val sliders = mutableListOf(
-            "http://perdanantb.or.id/wp-content/uploads/2019/07/POSTER-KEJURDAww.jpg",
-            "http://perdanantb.or.id/wp-content/uploads/2019/07/POSTER-KEJURDAww.jpg",
-            "http://perdanantb.or.id/wp-content/uploads/2019/07/POSTER-KEJURDAww.jpg"
+            "https://i0.wp.com/perdanaindonesia.or.id/wp-content/uploads/2020/12/WhatsApp-Image-2020-08-04-at-19.19-2-scaled.jpg?resize=1080%2C945&ssl=1",
+            "https://i2.wp.com/perdanaindonesia.or.id/wp-content/uploads/2020/12/Mask-Group-5.jpg?fit=1440%2C1120&ssl=1",
+            "https://i2.wp.com/perdanaindonesia.or.id/wp-content/uploads/2020/12/Mask-Group-3.jpg?fit=1440%2C1120&ssl=1"
         )
-
-//        private val topScorers = mutableListOf(
-//            TopScoring("1", "Eby Sofyan", "200", "30m", "Puta"),
-//            TopScoring("2", "L. Erfandi", "200", "30m", "Puta"),
-//            TopScoring("3", "L. ALgifari", "200", "30m", "Puta"),
-//            TopScoring("4", "M. Hamdanil", "200", "30m", "Puta"),
-//            TopScoring("5", "Rozali Izaq", "200", "30m", "Puta"),
-//            TopScoring("6", "Afif Azizi", "200", "30m", "Puta"),
-//            TopScoring("7", "Abdul Aziz", "200", "30m", "Puta"),
-//            TopScoring("8", "Muhardi", "200", "30m", "Puta")
-//        )
     }
 
     private lateinit var viewModel: MainViewModel
@@ -86,15 +76,13 @@ class MainFragment : Fragment() {
 
     private fun initializeUi() {
 //        initializeTopScoresRecyclerView()
-        if (context?.currentUserRole == Constants.UserRole.CLUB_SATUAN_MANAGER) {
-            initializeMainMenuRecyclerView()
-        }
     }
 
     private fun initSlider(view: View) {
         val carouselView = view.findViewById<CarouselView>(R.id.main_carousel_view)
         carouselView.pageCount = sliders.size
         carouselView.setImageListener { position, imageView ->
+            imageView.scaleType = ImageView.ScaleType.FIT_XY
             imageView.loadWithGlidePlaceholder(sliders[position])
         }
     }
@@ -107,25 +95,4 @@ class MainFragment : Fragment() {
 //        adapter.addItems(topScorers)
 //    }
 
-    private fun initializeMainMenuRecyclerView() {
-        main_fragment_menu_container.visible()
-
-        mainMenuAdapter = MainMenuRecyclerViewAdapter() {
-            try {
-                startActivity(Intent(context, module.toClass(context)))
-            } catch (e: ClassNotFoundException) {
-                context?.longToast("Module Not Implemented Yet. . .")
-            }
-        }
-        main_fragment_menu_recycler_view.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        main_fragment_menu_recycler_view.addItemDecoration(
-            ItemOffsetDecoration(
-                context!!,
-                R.dimen.item_offset
-            )
-        )
-        main_fragment_menu_recycler_view.adapter = mainMenuAdapter
-        mainMenuAdapter.addItems(mainMenus)
-    }
 }

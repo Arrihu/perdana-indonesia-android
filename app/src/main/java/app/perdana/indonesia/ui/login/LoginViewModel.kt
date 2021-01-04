@@ -5,14 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import app.perdana.indonesia.data.remote.model.LoginRequest
-import app.perdana.indonesia.data.repository.UserApiRepository
+import app.perdana.indonesia.data.repository.ArcherApiRepository
 import com.google.gson.Gson
 
 /**
  * Created by ebysofyan on 12/13/19.
  */
 class LoginViewModel : ViewModel() {
-    private val userApiRepository = UserApiRepository.getInstance()
+    private val userApiRepository = ArcherApiRepository.getInstance()
 
     private val loading = MutableLiveData<Boolean>()
 

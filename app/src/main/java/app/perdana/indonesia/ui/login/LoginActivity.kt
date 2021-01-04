@@ -12,11 +12,12 @@ import app.perdana.indonesia.core.extension.gone
 import app.perdana.indonesia.core.extension.setupActionbar
 import app.perdana.indonesia.core.extension.visible
 import app.perdana.indonesia.core.utils.Constants
+import app.perdana.indonesia.core.utils.InAppUpdateChecker
 import app.perdana.indonesia.core.utils.LocalStorage
 import app.perdana.indonesia.data.remote.model.LoginRequest
 import app.perdana.indonesia.data.remote.model.LoginResponse
 import app.perdana.indonesia.ui.main.MainActivity
-import app.perdana.indonesia.ui.register.RegisterActivity
+import app.perdana.indonesia.ui.register.webview.RegisterWebViewActivity
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.login_activity.*
 import kotlinx.android.synthetic.main.toolbar_light_theme.*
@@ -40,23 +41,18 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initializeUi() {
-        initActionBar()
         initActionListener()
 
         viewModel.getLoading().observe(this, Observer { loadingState ->
             showLoading(loadingState)
         })
+        InAppUpdateChecker.startInAppUpdateFlow(this)
     }
 
-    private fun initActionBar() {
-        _toolbar.setupActionbar(this, getString(R.string.login), true) {
-            finish()
-        }
-    }
 
     private fun initActionListener() {
         login_button_login.setOnClickListener(this)
-        login_text_register.setOnClickListener(this)
+        login_button_register.setOnClickListener(this)
     }
 
     private fun validateLoginForm(): Boolean {
@@ -103,9 +99,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun onResponseSuccess(body: LoginResponse?) {
         LocalStorage.put(this, Constants.TOKEN, body?.token.toString())
-        LocalStorage.put(this, Constants.USER_ROLE, body?.role.toString())
-        LocalStorage.put(this, Constants.USER_ID, body?.member?.id.toString())
-        LocalStorage.put(this, Constants.USER_PROFILE, Gson().toJson(body?.member))
+        LocalStorage.put(this, Constants.USER_ROLE, body?.user?.group.toString())
+//        LocalStorage.put(this, Constants.USER_ID, body?.user?.id.toString())
+        LocalStorage.put(this, Constants.USER_PROFILE, Gson().toJson(body?.user))
 
         startActivity(Intent(this, MainActivity::class.java))
         finishAffinity()
@@ -116,14 +112,13 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        when(v) {
+        when (v) {
             login_button_login -> {
                 submitLogin()
             }
 
-            login_text_register -> {
-                startActivity(Intent(this, RegisterActivity::class.java))
-                finish()
+            login_button_register -> {
+                startActivity(Intent(this, RegisterWebViewActivity::class.java))
             }
         }
     }
@@ -142,5 +137,15 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
             login_loading.gone()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        InAppUpdateChecker.resumeInAppUpdateFlow(this)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        InAppUpdateChecker.onInAppActivityResult(requestCode, resultCode)
     }
 }

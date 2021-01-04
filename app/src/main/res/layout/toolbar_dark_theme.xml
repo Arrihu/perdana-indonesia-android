@@ -10,4 +10,4 @@
     app:layout_collapseMode="pin"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     app:subtitleTextAppearance="@style/ToolbarSubTitleAppearance"
-    app:titleTextAppearance="@style/ToolbarTitleAppearance" />
+    app:titleTextAppearance="@style/ToolbarTitleText" />

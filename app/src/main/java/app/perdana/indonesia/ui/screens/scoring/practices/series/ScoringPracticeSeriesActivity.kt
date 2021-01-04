@@ -44,8 +44,7 @@ class ScoringPracticeSeriesActivity : AppCompatActivity() {
 
     private fun initializeUi() {
         viewModel = ViewModelProvider(this).get(ScoringPracticeSeriesViewModel::class.java)
-        practiceContainer =
-            intent.getParcelableExtra(Constants.PRACTICE_CONTAINER_RESPONSE_OBJ) as PracticeContainer
+        practiceContainer = intent.getParcelableExtra(Constants.PRACTICE_CONTAINER_RESPONSE_OBJ)
         archerMemberId = intent.getStringExtra(Constants.ARCHER_MEMBER_ID)
 
         initActionBar()
@@ -65,7 +64,7 @@ class ScoringPracticeSeriesActivity : AppCompatActivity() {
     private fun fetchScoringContainer() {
         viewModel.showDotsLoading(true)
         viewModel.getPracticesContainer(
-            formattedToken.toString(),
+            formattedToken,
             practiceContainer?.id.toString(),
             archerMemberId.toString()
         )
@@ -137,7 +136,7 @@ class ScoringPracticeSeriesActivity : AppCompatActivity() {
             response?.data != null -> {
                 HAS_CHANGE = true
 
-                longToast("Data skoring rambahan ke ${response.data.serie} berhasil di si`mpan")
+                longToast("Data skoring rambahan ke ${response.data.serie} berhasil di simpan")
                 adapter.updateDataPracticeSerie(response.data)
             }
             response?.error != null -> longToast(response.error.detail)

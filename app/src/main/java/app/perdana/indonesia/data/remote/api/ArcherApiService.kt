@@ -11,8 +11,8 @@ import retrofit2.http.*
 /**
  * Created by ebysofyan on 12/2/19.
  */
-interface UserApiService {
-    @POST("/api/v1/user/login")
+interface ArcherApiService {
+    @POST("/api/perdana/v1/archer/login")
     suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
 
     @Multipart

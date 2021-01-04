@@ -8,7 +8,7 @@ import app.perdana.indonesia.core.extension.getErrorDetail
 import app.perdana.indonesia.core.extension.then
 import app.perdana.indonesia.data.remote.model.MemberRequest
 import app.perdana.indonesia.data.repository.GeneralApiRepository
-import app.perdana.indonesia.data.repository.UserApiRepository
+import app.perdana.indonesia.data.repository.ArcherApiRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
@@ -21,7 +21,7 @@ import java.io.File
  */
 class RegisterViewModel : ViewModel() {
     private val repository: GeneralApiRepository? = GeneralApiRepository.getInstance()
-    private val userRepository: UserApiRepository? = UserApiRepository.getInstance()
+    private val archerRepository: ArcherApiRepository? = ArcherApiRepository.getInstance()
     private var job = SupervisorJob() + Dispatchers.IO
     private val loading = MutableLiveData<Boolean>()
 
@@ -78,7 +78,7 @@ class RegisterViewModel : ViewModel() {
     fun register(memberRequest: MemberRequest, photos: MutableList<Pair<String, File?>>) =
         liveData(job) {
             try {
-                userRepository?.register(memberRequest, photos).also {
+                archerRepository?.register(memberRequest, photos).also {
                     when (it?.isSuccessful) {
                         true -> emit(BaseApiResponseModel.Success(it))
                         else -> emit(

@@ -45,7 +45,7 @@ class ScoringPracticeContainerActivity : AppCompatActivity() {
     private fun initializeUi() {
         viewModel = ViewModelProvider(this).get(ScoringPracticeContainerViewModel::class.java)
         archerMemberResponse =
-            intent.getParcelableExtra(Constants.ARCHER_MEMBER_RESPONSE_OBJ) as ArcherMemberResponse
+            intent.getParcelableExtra(Constants.ARCHER_MEMBER_RESPONSE_OBJ)
         initActionBar()
         initPresenceItemRecyclerView()
         initActionListener()

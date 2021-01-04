@@ -64,7 +64,7 @@
     <style name="ButtonPrimaryStyle" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">Roboto-Bold</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:height">55dp</item>
+        <item name="android:height">45dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
@@ -75,7 +75,7 @@
     <style name="ButtonWhiteStyle" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">Roboto-Bold</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:height">55dp</item>
+        <item name="android:height">45dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
@@ -86,7 +86,7 @@
     <style name="ButtonOutlinePrimaryStyle" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">Roboto-Bold</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:height">55dp</item>
+        <item name="android:height">45dp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
         <item name="android:textAllCaps">true</item>
@@ -99,7 +99,7 @@
     <style name="ButtonOutlineWhiteStyle" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">Roboto-Bold</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:height">55dp</item>
+        <item name="android:height">45dp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
         <item name="android:textAllCaps">true</item>
@@ -112,7 +112,7 @@
     <style name="ButtonOutlineDisableStyle" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">Roboto-Bold</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:height">55dp</item>
+        <item name="android:height">45dp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
         <item name="android:textAllCaps">true</item>
