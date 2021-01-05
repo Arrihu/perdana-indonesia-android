@@ -55,24 +55,12 @@ class MemberListActivity : AppCompatActivity() {
 
     private fun fetchMemberLists() {
         viewModel.showDotsLoading(true)
-        viewModel.fetchMembers(formattedToken.toString())
-            .observe(this, Observer { response ->
-                onResponseHandler(response)
-            })
     }
 
     private fun onResponseHandler(response: ApiResponseModel<List<ArcherMemberResponse>>?) {
         applicant_swipe_layout?.isRefreshing = false
 
         viewModel.showDotsLoading(false)
-        when {
-            response?.data != null -> response.data.let {
-                adapter.clear()
-                adapter.addItems(it.toMutableList())
-            }
-            response?.error != null -> longToast(response.error.detail)
-            response?.exception != null -> longToast(response.exception.message.toString())
-        }
     }
 
 

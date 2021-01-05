@@ -38,39 +38,6 @@ class ApplicantDetailViewModel : ViewModel() {
 
     fun getLoading() = loading
 
-    fun getMemberApplicant(token: String, id: String) = liveData(job) {
-        try {
-            repository?.getMemberApplicant(token, id).also {
-                when (it?.isSuccessful) {
-                    true -> emit(ApiResponseModel(data = it.body()))
-                    else -> {
-                        ApiResponseError(it).also { error ->
-                            emit(ApiResponseModel(error = error))
-                        }
-                    }
-                }
-            }
-        } catch (e: Exception) {
-            emit(ApiResponseModel(exception = e))
-        }
-    }
-
-    fun approveApplicantMember(token: String, id: String, registerNumber: String) = liveData(job) {
-        try {
-            repository?.approveApplicantMember(token, id, registerNumber).also {
-                when (it?.isSuccessful) {
-                    true -> emit(ApiResponseModel(data = it.body()))
-                    else -> {
-                        ApiResponseError(it).also { error ->
-                            emit(ApiResponseModel(error = error))
-                        }
-                    }
-                }
-            }
-        } catch (e: Exception) {
-            emit(ApiResponseModel(exception = e))
-        }
-    }
 
     fun cancel() {
         if (job.isActive) job.cancel()

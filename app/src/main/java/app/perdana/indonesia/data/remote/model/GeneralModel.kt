@@ -36,17 +36,20 @@ data class Branch(
 }
 
 @Parcelize
-data class Club(
-    val id: Int,
-    val name: String
-) : Parcelable {
-    override fun toString(): String = name
-}
-
-@Parcelize
 data class Satuan(
     val id: Int,
     val name: String
 ) : Parcelable {
     override fun toString(): String = name
 }
+
+data class DashboardContainer(
+    val data: List<DashboardData>,
+    val title: String
+)
+
+data class DashboardData(
+    val title: String,
+    val type: String,
+    val value: Int
+)

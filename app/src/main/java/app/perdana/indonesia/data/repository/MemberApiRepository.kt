@@ -2,6 +2,7 @@ package app.perdana.indonesia.data.repository
 
 import app.perdana.indonesia.core.utils.NetworkConfig
 import app.perdana.indonesia.data.remote.api.MemberApiService
+import app.perdana.indonesia.data.remote.model.Archer
 import app.perdana.indonesia.data.remote.model.ArcherMemberResponse
 import com.google.gson.JsonElement
 import retrofit2.Response
@@ -23,9 +24,17 @@ class MemberApiRepository {
         }
     }
 
-    suspend fun getProfile(token: String): Response<JsonElement> {
+    suspend fun getProfile(token: String): Response<Archer> {
         val service = NetworkConfig.client.create(MemberApiService::class.java)
         return service.getProfile(token)
+    }
+
+    suspend fun checkMembership(
+        headerMap: HashMap<String, String>,
+        archerId: String
+    ): Response<Archer> {
+        val service = NetworkConfig.client.create(MemberApiService::class.java)
+        return service.checkMembership(headerMap, archerId)
     }
 
     suspend fun fetchMembers(token: String): Response<List<ArcherMemberResponse>> {

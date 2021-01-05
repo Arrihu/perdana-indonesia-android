@@ -27,4 +27,7 @@ interface GeneralApiService {
 
     @GET("/api/v1/user/archery-ranges")
     suspend fun fetchArcheryRanges(@Header("Authorization") token: String): Response<List<ArcheryRange>>
+
+    @GET("/api/perdana/v1/dashboard/main")
+    suspend fun fetchDashboardData(@Header("Authorization") token: String): Response<DashboardContainer>
 }

@@ -1,6 +1,7 @@
 package app.perdana.indonesia.core.utils
 
 import app.perdana.indonesia.BuildConfig
+import app.perdana.indonesia.R
 
 
 object Constants {
@@ -27,4 +28,12 @@ object Constants {
         const val ARCHER = "archer"
         const val CLUB_SATUAN_MANAGER = "club-satuan-manager"
     }
+
+    val dashboardBackgroundColors = listOf(
+        R.color.dashboardColor1,
+        R.color.dashboardColor2,
+        R.color.dashboardColor3,
+        R.color.dashboardColor4,
+        R.color.dashboardColor5
+    )
 }

@@ -1,32 +1,29 @@
-package app.perdana.indonesia.ui.login
+package app.perdana.indonesia.ui.scanner
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import app.perdana.indonesia.core.base.ApiResponseModel
 import app.perdana.indonesia.core.extension.getErrorDetail
-import app.perdana.indonesia.data.remote.model.LoginRequest
-import app.perdana.indonesia.data.repository.ArcherApiRepository
-import com.google.gson.Gson
+import app.perdana.indonesia.data.repository.MemberApiRepository
+import retrofit2.HttpException
 
 /**
- * Created by ebysofyan on 12/13/19.
+ * Created by ebysofyan on 12/24/19.
  */
-class LoginViewModel : ViewModel() {
-    private val userApiRepository = ArcherApiRepository.getInstance()
-
+class CheckMembershipViewModel : ViewModel() {
+    private val memberApiRepository = MemberApiRepository.getInstance()
     private val loading = MutableLiveData<Boolean>()
 
-    fun showLoading(value: Boolean) {
-        loading.value = value
+    fun showLoading(show: Boolean) {
+        this.loading.value = show
     }
 
-    fun getLoading() = this.loading
+    fun getLoading() = loading
 
-    fun login(loginRequest: LoginRequest) = liveData {
+    fun checkMembership(headerMap: HashMap<String, String>, archerId: String) = liveData {
         try {
-            val response = userApiRepository?.login(loginRequest)
+            val response = memberApiRepository?.checkMembership(headerMap, archerId)
             when (response?.isSuccessful) {
                 true -> emit(ApiResponseModel.Success(response.body()))
                 else -> emit(
@@ -39,5 +36,6 @@ class LoginViewModel : ViewModel() {
         } catch (e: Exception) {
             emit(ApiResponseModel.Error(e))
         }
+
     }
 }

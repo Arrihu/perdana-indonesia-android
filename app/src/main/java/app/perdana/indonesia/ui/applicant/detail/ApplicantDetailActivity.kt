@@ -56,10 +56,6 @@ class ApplicantDetailActivity : AppCompatActivity(), View.OnClickListener {
         })
 
         viewModel.setLoading(true)
-        viewModel.getMemberApplicant(formattedToken.toString(), archerMemberResponse?.id.toString())
-            .observe(this, Observer { response ->
-                onResponseHandler(response)
-            })
     }
 
 
@@ -73,11 +69,11 @@ class ApplicantDetailActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun onResponseHandler(response: ApiResponseModel<ArcherMemberResponse>?) {
         viewModel.setLoading(false)
-        when {
-            response?.data != null -> setArcherMemberView(response.data)
-            response?.error != null -> longToast(response.error.detail)
-            response?.exception != null -> longToast(response.exception.message.toString())
-        }
+//        when {
+//            response?.data != null -> setArcherMemberView(response.data)
+//            response?.error != null -> longToast(response.error.detail)
+//            response?.exception != null -> longToast(response.exception.message.toString())
+//        }
     }
 
     private fun initActionBar() {
@@ -177,37 +173,37 @@ class ApplicantDetailActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun onSubmitRegisterNumber(string: String) {
-        if (string.isNotEmpty()) {
-            viewModel.showProgressLoading(true to "Mengubah status peserta. Silahkan tunggu beberapa saat . . .")
-            viewModel.approveApplicantMember(
-                formattedToken,
-                archerMemberResponse?.id.toString(),
-                string
-            ).observe(this, Observer { response ->
-                approveApplicantResponseHandler(response)
-            })
-        }
+//        if (string.isNotEmpty()) {
+//            viewModel.showProgressLoading(true to "Mengubah status peserta. Silahkan tunggu beberapa saat . . .")
+//            viewModel.approveApplicantMember(
+//                formattedToken,
+//                archerMemberResponse?.id.toString(),
+//                string
+//            ).observe(this, Observer { response ->
+//                approveApplicantResponseHandler(response)
+//            })
+//        }
     }
 
     private fun approveApplicantResponseHandler(response: ApiResponseModel<ArcherMemberResponse>?) {
         viewModel.hideProgressLoading()
-        when {
-            response?.data != null -> {
-                alert {
-                    title =
-                        "Penerimaan anggota berhasil. Status peserta telah diubah menjadi anggota."
-                    okButton {
-                        it.dismiss()
-
-                        val intent = Intent()
-                        setResult(Activity.RESULT_OK, intent)
-                        finish()
-                    }
-                }.show()
-            }
-            response?.error != null -> longToast(response.error.detail)
-            response?.exception != null -> longToast(response.exception.message.toString())
-        }
+//        when {
+//            response?.data != null -> {
+//                alert {
+//                    title =
+//                        "Penerimaan anggota berhasil. Status peserta telah diubah menjadi anggota."
+//                    okButton {
+//                        it.dismiss()
+//
+//                        val intent = Intent()
+//                        setResult(Activity.RESULT_OK, intent)
+//                        finish()
+//                    }
+//                }.show()
+//            }
+//            response?.error != null -> longToast(response.error.detail)
+//            response?.exception != null -> longToast(response.exception.message.toString())
+//        }
     }
 
     private var progressDialog: ProgressDialog? = null

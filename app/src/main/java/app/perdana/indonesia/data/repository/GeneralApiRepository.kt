@@ -51,4 +51,9 @@ class GeneralApiRepository {
         val service = NetworkConfig.client.create(GeneralApiService::class.java)
         return service.fetchArcheryRanges(token)
     }
+
+    suspend fun fetchDashboardData(token: String): Response<DashboardContainer> {
+        val service = NetworkConfig.client.create(GeneralApiService::class.java)
+        return service.fetchDashboardData(token)
+    }
 }

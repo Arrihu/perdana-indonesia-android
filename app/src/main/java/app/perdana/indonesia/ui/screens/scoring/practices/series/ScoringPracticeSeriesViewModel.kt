@@ -45,21 +45,6 @@ class ScoringPracticeSeriesViewModel : ViewModel() {
             }
         }
 
-    fun updateSeriesScore(token: String, id: String, body: PracticeSeriesScore) =
-        liveData(job) {
-            Log.e("SCORES", Gson().toJson(body))
-            try {
-                repository?.updateSeriesScore(token, id, body).also {
-                    when (it?.isSuccessful) {
-                        true -> emit(ApiResponseModel(data = it.body()))
-                        else -> emit(ApiResponseModel(error = ApiResponseError(it)))
-                    }
-                }
-            } catch (e: HttpException) {
-                emit(ApiResponseModel(exception = e))
-            }
-        }
-
     fun addNewPracticesContainer(
         token: String,
         archerId: String,

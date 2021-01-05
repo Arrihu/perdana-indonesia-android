@@ -34,11 +34,11 @@ data class ApiResponseError(
     val detail: String get() = response?.errorBody()?.getErrorDetail().toString()
 }
 
-class ApiResponseModel<T>(
-    val data: T? = null,
-    val error: ApiResponseError? = null,
-    val exception: Exception? = null
-)
+sealed class ApiResponseModel<out T> {
+    data class Success<T>(val data: T) : ApiResponseModel<T>()
+    data class Failure(val statusCode: Int?, val detail: String) : ApiResponseModel<Nothing>()
+    data class Error(val e: Exception) : ApiResponseModel<Nothing>()
+}
 
 sealed class BaseApiResponseModel<out T> {
     data class Success<T>(val data: T) : BaseApiResponseModel<T>()

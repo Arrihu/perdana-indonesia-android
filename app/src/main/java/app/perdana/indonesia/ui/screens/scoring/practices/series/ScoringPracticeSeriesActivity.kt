@@ -112,13 +112,6 @@ class ScoringPracticeSeriesActivity : AppCompatActivity() {
                     title = "Kirim data skoring rambahan ke ${ps.serie}?"
                     okButton {
                         viewModel.showLoading(true to "Mengirim data skoring rambahan ke ${ps.serie}")
-                        viewModel.updateSeriesScore(
-                            formattedToken,
-                            ps.id.toString(),
-                            PracticeSeriesScore(ps.scores.toMutableList())
-                        ).observe(this@ScoringPracticeSeriesActivity, Observer { response ->
-                            onUpdateSeriesScoreHandler(response)
-                        })
                         it.dismiss()
                     }
                     cancelButton {
@@ -132,16 +125,6 @@ class ScoringPracticeSeriesActivity : AppCompatActivity() {
 
     private fun onUpdateSeriesScoreHandler(response: ApiResponseModel<PracticeSeries>?) {
         viewModel.hideLoading()
-        when {
-            response?.data != null -> {
-                HAS_CHANGE = true
-
-                longToast("Data skoring rambahan ke ${response.data.serie} berhasil di simpan")
-                adapter.updateDataPracticeSerie(response.data)
-            }
-            response?.error != null -> longToast(response.error.detail)
-            response?.exception != null -> longToast(response.exception.message.toString())
-        }
     }
 
     private fun showDotsLoading(show: Boolean) {

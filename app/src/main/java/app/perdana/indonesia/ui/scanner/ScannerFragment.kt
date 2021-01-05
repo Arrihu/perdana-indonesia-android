@@ -45,25 +45,27 @@ class ScannerFragment : Fragment(R.layout.fragment_scanner), ZXingScannerView.Re
 
     override fun onResume() {
         super.onResume()
-//        Handler(Looper.getMainLooper()).postDelayed({
-//            scanner_view.setResultHandler(this)
-//            scanner_view.startCamera()
-//        }, 1000)
+        Handler(Looper.getMainLooper()).postDelayed({
+            scanner_view.setResultHandler(this)
+            scanner_view.startCamera()
+        }, 350L)
     }
 
     override fun onPause() {
         super.onPause()
-//        scanner_view.stopCamera()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
         scanner_view.stopCamera()
     }
 
-    override fun handleResult(rawResult: Result?) {
-        Toast.makeText(requireContext(), rawResult?.text, Toast.LENGTH_SHORT).show()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        scanner_view?.stopCamera()
+    }
 
+    override fun handleResult(rawResult: Result?) {
+        BottomSheetDialogFragmentCheckMembership(rawResult?.text.toString()).show(
+            childFragmentManager,
+            this::class.java.simpleName
+        )
         Handler(Looper.getMainLooper()).postDelayed({
             scanner_view.resumeCameraPreview(this)
         }, 350L)

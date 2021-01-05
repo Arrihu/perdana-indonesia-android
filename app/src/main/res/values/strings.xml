@@ -78,4 +78,6 @@
     <string name="show">Tampilkan</string>
     <string name="save_scoring_form">Simpan Form Skoring</string>
     <string name="scan">Scan</string>
+    <string name="cek_keanggotaan">Cek Keanggotaan</string>
+    <string name="keluar">Keluar</string>
 </resources>

@@ -31,20 +31,4 @@ class MemberListViewModel : ViewModel() {
         progressLoading.value = false to ""
     }
 
-    fun fetchMembers(token: String) = liveData(job) {
-        try {
-            repository?.fetchMembers(token).also {
-                when (it?.isSuccessful) {
-                    true -> emit(ApiResponseModel(data = it.body()))
-                    else -> {
-                        ApiResponseError(it).also { error ->
-                            emit(ApiResponseModel(error = error))
-                        }
-                    }
-                }
-            }
-        } catch (e: Exception) {
-            emit(ApiResponseModel(exception = e))
-        }
-    }
 }

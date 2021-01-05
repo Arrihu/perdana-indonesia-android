@@ -7,9 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import app.perdana.indonesia.R
-import app.perdana.indonesia.core.extension.getErrorDetail
+import app.perdana.indonesia.core.base.ApiResponseModel
 import app.perdana.indonesia.core.extension.gone
-import app.perdana.indonesia.core.extension.setupActionbar
 import app.perdana.indonesia.core.extension.visible
 import app.perdana.indonesia.core.utils.Constants
 import app.perdana.indonesia.core.utils.InAppUpdateChecker
@@ -18,12 +17,10 @@ import app.perdana.indonesia.data.remote.model.LoginRequest
 import app.perdana.indonesia.data.remote.model.LoginResponse
 import app.perdana.indonesia.ui.main.MainActivity
 import app.perdana.indonesia.ui.register.webview.RegisterWebViewActivity
+import app.perdana.indonesia.ui.scanner.ScannerActivity
 import com.google.gson.Gson
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.login_activity.*
-import kotlinx.android.synthetic.main.toolbar_light_theme.*
-import okhttp3.ResponseBody
-import org.jetbrains.anko.longToast
-import retrofit2.Response
 
 /**
  * Created by ebysofyan on 11/26/19.
@@ -53,6 +50,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private fun initActionListener() {
         login_button_login.setOnClickListener(this)
         login_button_register.setOnClickListener(this)
+        login_button_membership_check.setOnClickListener(this)
     }
 
     private fun validateLoginForm(): Boolean {
@@ -79,36 +77,27 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             viewModel.showLoading(true)
             viewModel.login(payload).observe(this, Observer { response ->
                 viewModel.showLoading(false)
-                onResponse(response)
+                handleSubmitLogin(response)
             })
         } else return
     }
 
-    private fun onResponse(response: Response<LoginResponse>?) {
-        if (response != null) {
-            when {
-                response.isSuccessful -> {
-                    onResponseSuccess(response.body())
-                }
-                else -> onResponseFailed(response.errorBody())
+    private fun handleSubmitLogin(response: ApiResponseModel<LoginResponse?>) {
+        viewModel.showLoading(false)
+        when (response) {
+            is ApiResponseModel.Success -> {
+                val body = response.data
+                LocalStorage.put(this, Constants.TOKEN, body?.token.toString())
+                LocalStorage.put(this, Constants.USER_ROLE, body?.user?.group.toString())
+                LocalStorage.put(this, Constants.USER_PROFILE, Gson().toJson(body?.user))
+                startActivity(Intent(this, MainActivity::class.java))
+                finishAffinity()
             }
-        } else {
-            longToast(getString(R.string.no_internet_connection))
+            is ApiResponseModel.Failure -> {
+                Toasty.error(this, response.detail).show()
+            }
+            is ApiResponseModel.Error -> Toasty.error(this, response.e.message.toString()).show()
         }
-    }
-
-    private fun onResponseSuccess(body: LoginResponse?) {
-        LocalStorage.put(this, Constants.TOKEN, body?.token.toString())
-        LocalStorage.put(this, Constants.USER_ROLE, body?.user?.group.toString())
-//        LocalStorage.put(this, Constants.USER_ID, body?.user?.id.toString())
-        LocalStorage.put(this, Constants.USER_PROFILE, Gson().toJson(body?.user))
-
-        startActivity(Intent(this, MainActivity::class.java))
-        finishAffinity()
-    }
-
-    private fun onResponseFailed(errorBody: ResponseBody?) {
-        longToast(errorBody?.getErrorDetail().toString())
     }
 
     override fun onClick(v: View?) {
@@ -119,6 +108,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
             login_button_register -> {
                 startActivity(Intent(this, RegisterWebViewActivity::class.java))
+            }
+            login_button_membership_check -> {
+                startActivity(Intent(this, ScannerActivity::class.java))
             }
         }
     }

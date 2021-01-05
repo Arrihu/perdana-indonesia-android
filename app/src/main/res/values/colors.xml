@@ -17,4 +17,10 @@
     <color name="primaryText">#212121</color>
     <color name="secondaryText">#757575</color>
     <color name="colorBackground">#ededed</color>
+
+    <color name="dashboardColor1">#F08250</color>
+    <color name="dashboardColor2">#6E92B1</color>
+    <color name="dashboardColor3">#3B505A</color>
+    <color name="dashboardColor4">#3C6DA2</color>
+    <color name="dashboardColor5">#93B0D3</color>
 </resources>
