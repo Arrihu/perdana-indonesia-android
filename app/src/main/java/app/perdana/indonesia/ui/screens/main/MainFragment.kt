@@ -61,6 +61,8 @@ class MainFragment : Fragment() {
 
         fetchDashboardData()
         main_swipe_refresh_layout.setOnRefreshListener {
+            viewModel.showLoading(true)
+            adapter.clear()
             Handler(Looper.getMainLooper()).postDelayed({
                 main_swipe_refresh_layout.isRefreshing = false
                 fetchDashboardData()
@@ -106,7 +108,7 @@ class MainFragment : Fragment() {
         val carouselView = view.findViewById<CarouselView>(R.id.main_carousel_view)
         carouselView.pageCount = sliders.size
         carouselView.setImageListener { position, imageView ->
-            imageView.scaleType = ImageView.ScaleType.FIT_XY
+            imageView.scaleType = ImageView.ScaleType.CENTER_CROP
             imageView.loadWithGlidePlaceholder(sliders[position])
         }
     }

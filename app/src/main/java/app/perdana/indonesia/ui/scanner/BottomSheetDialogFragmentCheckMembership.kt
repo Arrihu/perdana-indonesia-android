@@ -7,23 +7,19 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import app.perdana.indonesia.BuildConfig
 import app.perdana.indonesia.R
 import app.perdana.indonesia.core.base.ApiResponseModel
 import app.perdana.indonesia.core.dialog.RoundedBottomSheetDialogFragment
 import app.perdana.indonesia.core.extension.gone
+import app.perdana.indonesia.core.extension.loadWithGlidePlaceholder
 import app.perdana.indonesia.core.extension.visible
 import app.perdana.indonesia.core.utils.Constants
 import app.perdana.indonesia.core.utils.LocalStorage
 import app.perdana.indonesia.core.utils.formattedToken
 import app.perdana.indonesia.data.remote.model.Archer
-import app.perdana.indonesia.ui.applicant.detail.ApplicantDetailActivity
-import app.perdana.indonesia.ui.screens.profile.detail.ProfileDetailViewModel
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.bottom_sheet_archer_information.*
-import kotlinx.android.synthetic.main.bottom_sheet_input_register_number.*
-import kotlinx.android.synthetic.main.profile_fragment.*
-import kotlinx.android.synthetic.main.profile_item_view.*
 
 /**
  * Created by ebysofyan on 17/01/20.
@@ -70,8 +66,13 @@ class BottomSheetDialogFragmentCheckMembership(private val archerId: String) :
     }
 
     private fun handleGetLoading(show: Boolean) {
-        if (show) bottom_sheet_archer_loading.visible()
-        else bottom_sheet_archer_loading.gone()
+        if (show) {
+            bottom_sheet_archer_public_photo.gone()
+            bottom_sheet_archer_loading.visible()
+        } else {
+            bottom_sheet_archer_public_photo.visible()
+            bottom_sheet_archer_loading.gone()
+        }
     }
 
     private fun handleCheckMembership(response: ApiResponseModel<Archer?>) {
@@ -118,6 +119,7 @@ class BottomSheetDialogFragmentCheckMembership(private val archerId: String) :
             )
         }
 
+        bottom_sheet_archer_public_photo.loadWithGlidePlaceholder(BuildConfig.BASE_URL + archer?.public_photo)
         archerMemberPersonalInfo.forEach { perInfo ->
             val inflatedView = layoutInflater.inflate(
                 R.layout.profile_item_view,

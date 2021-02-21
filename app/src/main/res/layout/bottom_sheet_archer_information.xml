@@ -49,6 +49,14 @@
                 android:padding="8dp"
                 app:SpinKit_Color="@color/colorPrimaryDark" />
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/bottom_sheet_archer_public_photo"
+                android:layout_width="89dp"
+                android:layout_height="89dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp" />
+
 
             <LinearLayout
                 android:id="@+id/bottom_sheet_archer_info_container"

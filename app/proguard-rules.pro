@@ -19,3 +19,14 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keep class comapp.perdana.indonesia.data.remote.model.** { *; }
+-keep class app.perdana.indonesia.data.remote.model.*$* { *; }
+-keepclassmembers,allowobfuscation class * {
+  @com.google.gson.annotations.SerializedName <fields>;
+}
+-keepattributes Signature, InnerClasses, EnclosingMethod, SourceFile, LineNumberTable
+-keepattributes *Annotation*
+
+-keep public class * extends java.lang.Exception
+-keep class com.google.firebase.crashlytics.** { *; }
+-dontwarn com.google.firebase.crashlytics.**

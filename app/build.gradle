@@ -9,8 +9,8 @@ android {
     defaultConfig {
         applicationId "app.perdana.indonesia"
         minSdkVersion 21
-        versionCode 3
-        versionName "1.0"
+        versionCode 4
+        versionName "1.1"
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -39,16 +39,15 @@ android {
     buildTypes {
         Properties properties = new Properties()
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
-        def baseUrl = properties.getProperty("baseurl")
 
         release {
-            minifyEnabled false
-            shrinkResources false
-            buildConfigField 'String', 'BASE_URL', baseUrl
+            minifyEnabled true
+            shrinkResources true
+            buildConfigField 'String', 'BASE_URL', properties.getProperty("prod.baseurl")
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            buildConfigField 'String', 'BASE_URL', baseUrl
+            buildConfigField 'String', 'BASE_URL', properties.getProperty("dev.baseurl")
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

@@ -79,7 +79,7 @@ data class Club(
     val modified: String,
     val name: String,
     val org_type: String,
-    val organisation_id: Int,
+    val organisation_id: String,
     val province_code: String,
     val village: Int
 ) : Parcelable
